@@ -10,16 +10,17 @@ import Foundation
 enum EndPoints {
     static let baseURL = URL(string: "https://www.flickr.com/")!
 
-    case search(String)
+    case search(text: String, safeSearch: SafeSearch)
 
     func builder() -> Requestable {
         switch self {
-        case .search(let text):
+        case .search(let text, let safeSearch):
             return Request(baseURL: EndPoints.baseURL,
                            path: "services/rest",
                            method: .get,
                            parameters: ["method": "flickr.photos.search",
-                                        "text": text])
+                                        "text": text,
+                                        "safe_search": "\(safeSearch.rawValue)"])
         }
     }
 }

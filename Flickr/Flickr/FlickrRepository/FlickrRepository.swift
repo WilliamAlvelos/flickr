@@ -11,15 +11,14 @@ import Combine
 protocol FlickrRepositoryProtocol {
 //    func findByUsername(name: String) -> AnyPublisher<User, Error>
 //    func fetchGallery() -> AnyPublisher<Galleries, Error>
-    func searchPhotos(text: String) -> AnyPublisher<BaseRequest<Photos>, Error>
+    func searchPhotos(text: String, safeSearch: SafeSearch) -> AnyPublisher<BaseRequest<Photos>, Error>
 }
-
 
 class FlickrRepository: FlickrRepositoryProtocol {
     let apiClient = URLSessionAPIClient()
 
-    func searchPhotos(text: String) -> AnyPublisher<BaseRequest<Photos>, Error> {
-        apiClient.request(EndPoints.search(text).builder())
+    func searchPhotos(text: String, safeSearch: SafeSearch) -> AnyPublisher<BaseRequest<Photos>, Error> {
+        apiClient.request(EndPoints.search(text: text, safeSearch: safeSearch).builder())
     }
 //    
 //    func fetchGallery() -> AnyPublisher<Galleries, Error> {

@@ -15,9 +15,18 @@ struct FlickrApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                HomeView().tabItem {
+                NavigationView {
+                    HomeView(viewModel: HomeViewModel())
+                }.tabItem {
                     Label("Home",
-                          systemImage: "photo.artframe.circle.fill")
+                          systemImage: "photo.artframe.circle")
+                }
+                
+                NavigationView {
+                    SearchView(viewModel: SearchViewModel())
+                }.tabItem {
+                    Label("Search",
+                          systemImage: "magnifyingglass.circle")
                 }
             }.accentColor(Color.primaryBlue)
         }

@@ -27,6 +27,11 @@
 		C2DA33092B502D4400083CD9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA33082B502D4400083CD9 /* ImageCache.swift */; };
 		C2DA330C2B50363800083CD9 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2DA330B2B50363800083CD9 /* APIKeys.plist */; };
 		C2DA330E2B50383500083CD9 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA330D2B50383500083CD9 /* APIKeys.swift */; };
+		C2DA33112B503EA400083CD9 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = C2DA33102B503EA400083CD9 /* .swiftlint.yml */; };
+		C2DA33142B504AEC00083CD9 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA33132B504AEC00083CD9 /* SearchView.swift */; };
+		C2DA33162B504AF400083CD9 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA33152B504AF400083CD9 /* SearchViewModel.swift */; };
+		C2DA33192B504CF000083CD9 /* FlickrErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA33182B504CF000083CD9 /* FlickrErrorView.swift */; };
+		C2DA331B2B504D2D00083CD9 /* FlickrButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA331A2B504D2C00083CD9 /* FlickrButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +76,11 @@
 		C2DA33082B502D4400083CD9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		C2DA330B2B50363800083CD9 /* APIKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		C2DA330D2B50383500083CD9 /* APIKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		C2DA33102B503EA400083CD9 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		C2DA33132B504AEC00083CD9 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		C2DA33152B504AF400083CD9 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		C2DA33182B504CF000083CD9 /* FlickrErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrErrorView.swift; sourceTree = "<group>"; };
+		C2DA331A2B504D2C00083CD9 /* FlickrButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +111,7 @@
 		C2DA32B32B4FEB4A00083CD9 = {
 			isa = PBXGroup;
 			children = (
+				C2DA33102B503EA400083CD9 /* .swiftlint.yml */,
 				C2DA32BE2B4FEB4A00083CD9 /* Flickr */,
 				C2DA32D02B4FEB4B00083CD9 /* FlickrTests */,
 				C2DA32DA2B4FEB4B00083CD9 /* FlickrUITests */,
@@ -121,9 +132,9 @@
 		C2DA32BE2B4FEB4A00083CD9 /* Flickr */ = {
 			isa = PBXGroup;
 			children = (
+				C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */,
 				C2DA32F62B50002C00083CD9 /* Shared */,
 				C2DA32EC2B4FFAD900083CD9 /* FlickrRepository */,
-				C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */,
 				C2DA32F92B5000EE00083CD9 /* Views */,
 				C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */,
 				C2DA32C52B4FEB4B00083CD9 /* Flickr.entitlements */,
@@ -185,6 +196,7 @@
 		C2DA32F62B50002C00083CD9 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C2DA33172B504CD800083CD9 /* ErrorView */,
 				C2DA33072B502D3200083CD9 /* Image */,
 			);
 			path = Shared;
@@ -193,6 +205,7 @@
 		C2DA32F92B5000EE00083CD9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C2DA33122B504ADF00083CD9 /* SearchView */,
 				C2DA32FC2B50018400083CD9 /* HomeView */,
 			);
 			path = Views;
@@ -216,6 +229,24 @@
 			path = Image;
 			sourceTree = "<group>";
 		};
+		C2DA33122B504ADF00083CD9 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				C2DA33132B504AEC00083CD9 /* SearchView.swift */,
+				C2DA33152B504AF400083CD9 /* SearchViewModel.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		C2DA33172B504CD800083CD9 /* ErrorView */ = {
+			isa = PBXGroup;
+			children = (
+				C2DA33182B504CF000083CD9 /* FlickrErrorView.swift */,
+				C2DA331A2B504D2C00083CD9 /* FlickrButtonStyle.swift */,
+			);
+			path = ErrorView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -226,6 +257,7 @@
 				C2DA32B82B4FEB4A00083CD9 /* Sources */,
 				C2DA32B92B4FEB4A00083CD9 /* Frameworks */,
 				C2DA32BA2B4FEB4A00083CD9 /* Resources */,
+				C2DA330F2B503E5700083CD9 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -320,6 +352,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2DA33112B503EA400083CD9 /* .swiftlint.yml in Resources */,
 				C2DA32EB2B4FF17200083CD9 /* Launch Screen.storyboard in Resources */,
 				C2DA330C2B50363800083CD9 /* APIKeys.plist in Resources */,
 				C2DA32C82B4FEB4B00083CD9 /* Preview Assets.xcassets in Resources */,
@@ -343,21 +376,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C2DA330F2B503E5700083CD9 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C2DA32B82B4FEB4A00083CD9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2DA33192B504CF000083CD9 /* FlickrErrorView.swift in Sources */,
 				C2DA33002B50043900083CD9 /* Gallery.swift in Sources */,
 				C2DA32F32B4FFDC600083CD9 /* URLSessionAPIClient.swift in Sources */,
 				C2DA330E2B50383500083CD9 /* APIKeys.swift in Sources */,
 				C2DA32F12B4FFCB100083CD9 /* User.swift in Sources */,
 				C2DA33022B50044B00083CD9 /* Photo.swift in Sources */,
 				C2DA33062B502BE200083CD9 /* ImageView.swift in Sources */,
+				C2DA33162B504AF400083CD9 /* SearchViewModel.swift in Sources */,
 				C2DA32FE2B50019400083CD9 /* HomeViewModel.swift in Sources */,
 				C2DA33092B502D4400083CD9 /* ImageCache.swift in Sources */,
 				C2DA32F52B4FFE1300083CD9 /* FlickrLogger.swift in Sources */,
 				C2DA33042B50233000083CD9 /* EndPoints.swift in Sources */,
+				C2DA331B2B504D2D00083CD9 /* FlickrButtonStyle.swift in Sources */,
+				C2DA33142B504AEC00083CD9 /* SearchView.swift in Sources */,
 				C2DA32EE2B4FFAF200083CD9 /* FlickrRepository.swift in Sources */,
 				C2DA32FB2B50010200083CD9 /* HomeView.swift in Sources */,
 				C2DA32C02B4FEB4A00083CD9 /* FlickrApp.swift in Sources */,

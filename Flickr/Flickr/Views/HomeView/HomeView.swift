@@ -8,43 +8,43 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var viewModel = HomeViewModel()
-    @State private var searchText = "yorkshire"
-    @State private var searchType = 0
+    @ObservedObject var viewModel: HomeViewModel
 
     var body: some View {
-        NavigationView {
-            VStack {
-                Picker(selection: $searchType, label: Text("Search Type")) {
-                    Text("Photos").tag(0)
-                    Text("Users").tag(1)
-                    Text("Tags").tag(2)
-                }
-                .pickerStyle(.segmented)
-                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
-                
-                switch viewModel.status {
-                case .empty:
-                    EmptyView()
-                case .error(let error):
-                    EmptyView()
-                case .loaded, .loading:
-                    List(viewModel.photos) { photos in
-                        ImageView(imageURL: photos.photoURL)
-                            .frame(maxWidth: .infinity)
-                    }.refreshable {
-                        viewModel.searchPhotos(text: searchText)
+        switch viewModel.status {
+        case .empty:
+            EmptyView()
+        case .error(let error):
+            FlickrErrorView(errorMessage: error.localizedDescription) {
+                viewModel.searchPhotos()
+            }
+        case .loaded, .loading:
+            List(viewModel.photos) { photos in
+                VStack(alignment: .leading) {
+                    ImageView(imageURL: photos.photoURL)
+                        .frame(maxWidth: .infinity)
+                    HStack {
+                        ImageView(imageURL: photos.ownerPhotoURL)
+                            .frame(width: 60, height: 60)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.secondaryPink.gradient,
+                                                     lineWidth: 1))
+                            .shadow(radius: 3)
+                        VStack(alignment: .leading) {
+                            Text(photos.title)
+                                .font(.callout)
+                            Text(photos.owner)
+                                .font(.footnote)
+                        }
                     }
                 }
+            }.refreshable {
+                viewModel.searchPhotos()
+            }.listStyle(.plain)
+            .navigationTitle("Yorkshire")
+            .onAppear {
+                viewModel.searchPhotos()
             }
-        }.searchable(text: $searchText)
-        .navigationTitle("Flickr")
-        .onSubmit(of: .search) {
-            viewModel.searchPhotos(text: searchText)
         }
     }
-}
-
-#Preview {
-    HomeView()
 }

@@ -40,4 +40,10 @@ struct Photo: Codable, Identifiable {
         guard let url = URL(string: string) else { return nil }
         return url
     }
+    
+    var ownerPhotoURL: URL? {
+        let string = "https://live.staticflickr.com/\(server)/buddyicons/\(owner)_s.jpg"
+        guard let url = URL(string: string) else { return nil }
+        return url
+    }
 }

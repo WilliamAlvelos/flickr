@@ -11,6 +11,8 @@ struct ImageView: View {
     let imageURL: URL?
     
     @State private var cachedImage: UIImage? = nil
+    @State private var isLoading: Bool = false
+    @State private var error: Error?
 
     var body: some View {
         VStack {
@@ -23,20 +25,42 @@ struct ImageView: View {
                     AsyncImage(url: imageURL) { phase in
                         switch phase {
                         case .empty:
-                            ProgressView()
+                            if isLoading {
+                                ProgressView()
+                            }
                         case .success(let image):
                             image
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                         case .failure:
-                            Text("Failed to load image")
-                                .foregroundColor(.red)
+                            Button("", systemImage: "arrow.circlepath", action: loadImage)
+                                .foregroundColor(.blue)
                         @unknown default:
-                            Text("Unknown state")
+                            Button("", systemImage: "arrow.circlepath", action: loadImage)
+                                .foregroundColor(.blue)
                         }
-                    }
+                    }.onAppear(perform: loadImage)
                 }
             }
         }
     }
+        
+    private func loadImage() {
+          guard let imageURL = imageURL else { return }
+          
+          isLoading = true
+
+          URLSession.shared.dataTask(with: imageURL) { data, response, error in
+              DispatchQueue.main.async {
+                  isLoading = false
+                  if let data = data, let loadedImage = UIImage(data: data) {
+                      cachedImage = loadedImage
+                  } else {
+                      self.error = error
+                  }
+              }
+          }.resume()
+      }
+    
 }
+    
