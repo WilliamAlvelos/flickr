@@ -90,5 +90,4 @@ fastlane/test_output
 iOSInjectionProject/
 
 # API KEYS
-
-*APIKeys.plist
+Flickr/Flickr/APIKeys.plist
