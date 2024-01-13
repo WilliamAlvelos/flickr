@@ -1,0 +1,23 @@
+name: iOS starter workflow
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!develop'
+      - '!master'
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    name: Build and Test default scheme using any available iPhone simulator
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Build and run tests
+        run: |
+          xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator,name=iPhone 15'
