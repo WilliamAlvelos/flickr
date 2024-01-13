@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Build and Test scheme
     runs-on: macos-latest
     
     steps:
@@ -20,6 +20,9 @@ jobs:
 
       - name: Change to project directory
         run: cd Flickr
+        
+      - name: Check project directory
+        run: ls -lha    
         
       - name: Build and run tests
         run: |
