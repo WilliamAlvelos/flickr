@@ -5,7 +5,7 @@ on:
     branches:
       - '*'
       - '!develop'
-      - '!main'
+      # - '!main'
   pull_request:
     branches: [ "main", "develop" ]
 
@@ -18,11 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Change to project directory
-        run: cd flickr/Flickr
-        
-      - name: Check project directory
-        run: ls -lha    
+      - name: Change to project directory and check
+        run: cd flickr/Flickr && ls -lha
         
       - name: Build and run tests
         run: |
