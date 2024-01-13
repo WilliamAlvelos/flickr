@@ -21,4 +21,5 @@ jobs:
       - name: Change to project directory and run tests
         run: |
           cd flickr
-          xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator,name=Any iOS Simulator Device'
+          xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator,OS=latest,name=iPhone'
+
