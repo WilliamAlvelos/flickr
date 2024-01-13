@@ -8,18 +8,22 @@ on:
       # - '!main'
   pull_request:
     branches: [ "main", "develop" ]
-
+    
 jobs:
   build:
     name: Build and Test scheme
-    runs-on: macos-latest
+    runs-on: macos-13
     
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '15.0-beta'
+    
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Change to project directory and run tests
         run: |
           cd flickr
-          xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator,OS=latest,name=iPhone'
+          xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator'
 
