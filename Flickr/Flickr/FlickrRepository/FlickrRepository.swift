@@ -9,24 +9,32 @@ import Foundation
 import Combine
 
 protocol FlickrRepositoryProtocol {
-//    func findByUsername(name: String) -> AnyPublisher<User, Error>
-//    func fetchGallery() -> AnyPublisher<Galleries, Error>
-    func searchPhotos(text: String, safeSearch: SafeSearch) -> AnyPublisher<BaseRequest<Photos>, Error>
+    func fetchPhotosBy(userId: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error>
+    func searchPhotosBy(text: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error>
+    
+    func findUserBy(userName: String) -> AnyPublisher<UserBaseRequest<User>, Error>
+    func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseRequest<Person>, Error>
+
 }
 
-class FlickrRepository: FlickrRepositoryProtocol {
-    let apiClient = URLSessionAPIClient()
+final class FlickrRepository: FlickrRepositoryProtocol {
+    private let apiClient = URLSessionAPIClient()
 
-    func searchPhotos(text: String, safeSearch: SafeSearch) -> AnyPublisher<BaseRequest<Photos>, Error> {
-        apiClient.request(EndPoints.search(text: text, safeSearch: safeSearch).builder())
+    // TODO:  Move safe search and page to optional
+    func searchPhotosBy(text: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error> {
+        apiClient.request(EndPoints.search(text: text, safeSearch: safeSearch, page: page).builder())
     }
-//    
-//    func fetchGallery() -> AnyPublisher<Galleries, Error> {
-//        
-//    }
-//    
-//    func searchPhotos(text: String) -> AnyPublisher<Photos, Error> {
-//        
-//    }
+    
+    func findUserBy(userName: String) -> AnyPublisher<UserBaseRequest<User>, Error> {
+        apiClient.request(EndPoints.userSearch(userName: userName).builder())
+    }
+
+    func fetchPhotosBy(userId: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error> {
+        apiClient.request(EndPoints.photos(userId: userId, safeSearch: safeSearch, page: page).builder())
+    }
+    
+    func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseRequest<Person>, Error> {
+        apiClient.request(EndPoints.personInfo(userId: userId).builder())
+    }
 }
  

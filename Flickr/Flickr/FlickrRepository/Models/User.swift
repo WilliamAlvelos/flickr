@@ -7,13 +7,20 @@
 
 import Foundation
 
+struct UserBaseRequest<T: Codable>: Codable {
+    let user: T
+    let stat: RequestStat
+}
 
 struct User: Codable {
     let id: String
     let nsid: String
-    let username: UserName
+    let username: DataContent<String>
 }
 
-struct UserName: Codable {
-    let _content: String
+struct DataContent<T: Codable>: Codable {
+    let _content: T
 }
+
+
+

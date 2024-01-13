@@ -9,41 +9,37 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewModel: HomeViewModel
-
+    @EnvironmentObject var coordinator: AppCoordinator
+    
     var body: some View {
         switch viewModel.status {
         case .empty:
-            EmptyView()
+            FLEmptyView()
         case .error(let error):
             FlickrErrorView(errorMessage: error.localizedDescription) {
-                viewModel.searchPhotos()
+                viewModel.loadFirstPage()
             }
         case .loaded, .loading:
-            List(viewModel.photos) { photos in
-                VStack(alignment: .leading) {
-                    ImageView(imageURL: photos.photoURL)
-                        .frame(maxWidth: .infinity)
-                    HStack {
-                        ImageView(imageURL: photos.ownerPhotoURL)
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-                            .overlay(Circle().stroke(Color.secondaryPink.gradient,
-                                                     lineWidth: 1))
-                            .shadow(radius: 3)
-                        VStack(alignment: .leading) {
-                            Text(photos.title)
-                                .font(.callout)
-                            Text(photos.owner)
-                                .font(.footnote)
+            GeometryReader { geometry in
+                List(viewModel.photos) { photo in
+                    PhotoView(photo: photo, screenWidth: geometry.size.width)
+                        .onAppear() {
+                            viewModel.loadMoreIfNeeded(item: photo)
+                        }.listRowSeparator(.hidden)
+                        .onTapGesture {
+                            coordinator.presentPhoto(photo: photo)
                         }
-                    }
                 }
             }.refreshable {
-                viewModel.searchPhotos()
-            }.listStyle(.plain)
-            .navigationTitle("Yorkshire")
-            .onAppear {
-                viewModel.searchPhotos()
+                viewModel.loadFirstPage()
+            }.onFirstAppear {
+                viewModel.loadFirstPage()
+            }
+            .navigationTitle("Flickr")
+            .listStyle(.plain)
+            .searchable(text: $viewModel.searchText)
+            .onSubmit(of: .search) {
+                viewModel.loadFirstPage()
             }
         }
     }

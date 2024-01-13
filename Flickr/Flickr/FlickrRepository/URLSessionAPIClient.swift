@@ -8,24 +8,6 @@
 import Foundation
 import Combine
 
-protocol Requestable {
-    var baseURL: URL { get }
-    var path: String { get }
-    var method: HTTPMethod { get }
-    var headers: [String: String]? { get }
-    var parameters: [String: String] { get }
-    var body: Encodable? { get }
-}
-
-struct Request: Requestable {
-    var baseURL: URL
-    var path: String
-    var method: HTTPMethod
-    var headers: [String: String]?
-    var parameters: [String: String]
-    var body: Encodable?
-}
-
 enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
@@ -48,11 +30,11 @@ protocol APIClient {
     func request<T: Decodable>(_ endpoint: Requestable) -> AnyPublisher<T, Error>
 }
 
-class URLSessionAPIClient: APIClient {
+final class URLSessionAPIClient: APIClient {
     
-    let commomParams = ["format": "json",
-                        "nojsoncallback": "1",
-                        "api_key": APIKeys.apiKey()]
+    private let commomParams = ["format": "json",
+                                "nojsoncallback": "1",
+                                "api_key": APIKeys.apiKey()]
 
     func request<T: Decodable>(_ endpoint: Requestable) -> AnyPublisher<T, Error> {
         let url = endpoint.baseURL.appendingPathComponent(endpoint.path)
@@ -72,6 +54,9 @@ class URLSessionAPIClient: APIClient {
         
         FlickrLogger.logRequest(request: request)
         
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .tryMap { data, response -> Data in
@@ -86,12 +71,12 @@ class URLSessionAPIClient: APIClient {
                     if [401, 403].contains(httpResponse.statusCode) {
                         throw APIError.unauthorized
                     }
-                    
-                    throw try JSONDecoder().decode(FlickrError.self, from: data)
+
+                    throw try decoder.decode(FlickrError.self, from: data)
                 }
                 return data
             }
-            .decode(type: T.self, decoder: JSONDecoder())
+            .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
 }

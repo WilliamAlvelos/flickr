@@ -9,29 +9,31 @@ import SwiftUI
 
 struct ImageView: View {
     let imageURL: URL?
+    var contentMode: ContentMode = .fit
     
     @State private var cachedImage: UIImage? = nil
     @State private var isLoading: Bool = false
     @State private var error: Error?
+    
 
     var body: some View {
         VStack {
             if let cachedImage = cachedImage {
                 Image(uiImage: cachedImage)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
+                    .aspectRatio(contentMode: contentMode)
             } else {
-                if let imageURL = imageURL {
+                if isLoading {
+                    ProgressView()
+                } else if let imageURL = imageURL {
                     AsyncImage(url: imageURL) { phase in
                         switch phase {
                         case .empty:
-                            if isLoading {
-                                ProgressView()
-                            }
+                            ProgressView()
                         case .success(let image):
                             image
                                 .resizable()
-                                .aspectRatio(contentMode: .fit)
+                                .aspectRatio(contentMode: contentMode)
                         case .failure:
                             Button("", systemImage: "arrow.circlepath", action: loadImage)
                                 .foregroundColor(.blue)
@@ -47,7 +49,6 @@ struct ImageView: View {
         
     private func loadImage() {
           guard let imageURL = imageURL else { return }
-          
           isLoading = true
 
           URLSession.shared.dataTask(with: imageURL) { data, response, error in

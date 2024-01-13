@@ -9,30 +9,36 @@ import SwiftUI
 
 @main
 struct FlickrApp: App {
-    
+    @StateObject private var coordinator = AppCoordinator()
     private let dependencies: Dependencies = Dependencies()
     
     var body: some Scene {
         WindowGroup {
             TabView {
-                NavigationView {
-                    HomeView(viewModel: HomeViewModel())
+                NavigationStack(path: $coordinator.path) {
+                    coordinator.build(screen: .homeView)
+                        .navigationDestination(for: Screen.self) { screen in
+                            coordinator.build(screen: screen)
+                        }
+                        .sheet(item: $coordinator.sheet) { sheet in
+                            coordinator.build(screen: sheet)
+                        }
                 }.tabItem {
                     Label("Home",
                           systemImage: "photo.artframe.circle")
                 }
                 
-                NavigationView {
-                    SearchView(viewModel: SearchViewModel())
+                NavigationStack(path: $coordinator.path) {
+                    coordinator.build(screen: .searchView)
+                        .navigationDestination(for: Photo.self) { photo in
+                            coordinator.build(screen: .photoDetail(photo: photo))
+                        }
+                    
                 }.tabItem {
                     Label("Search",
                           systemImage: "magnifyingglass.circle")
                 }
-            }.accentColor(Color.primaryBlue)
-        }
+            }
+        }.environmentObject(coordinator)
     }
-}
-
-class Dependencies {
-    
 }

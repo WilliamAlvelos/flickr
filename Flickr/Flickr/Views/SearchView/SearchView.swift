@@ -16,15 +16,16 @@ struct SearchView: View {
         VStack {
             Picker(selection: $searchType, label: Text("Search Type")) {
                 Text("Photos").tag(0)
-                Text("Users").tag(1)
-                Text("Tags").tag(2)
+                Text("Tags").tag(1)
+                Text("Groups").tag(2)
             }
             .pickerStyle(.segmented)
             .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+            Spacer()
             
             switch viewModel.status {
             case .empty:
-                EmptyView()
+                FLEmptyView()
             case .error(let error):
                 FlickrErrorView(errorMessage: error.localizedDescription) {
                     viewModel.searchPhotos(text: searchText)

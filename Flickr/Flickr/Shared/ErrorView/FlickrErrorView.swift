@@ -22,7 +22,7 @@ struct FlickrErrorView: View {
                 .foregroundColor(Color.gray)
                 .padding()
             
-            Button("try_again", action: retryAction)
+            Button("Try Again", action: retryAction) // TODO:  Localise this text
                 .buttonStyle(FlickrButtonStyle())
         }
         .padding()

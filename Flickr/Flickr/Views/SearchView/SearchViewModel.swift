@@ -12,11 +12,18 @@ final class SearchViewModel: ObservableObject {
     
     @Published var status: Status = .empty
     @Published var photos = [Photo]()
+    
     private var cancellable: Set<AnyCancellable> = []
-    private var repository: FlickrRepositoryProtocol = FlickrRepository() // TODO:  INSERT THIS USING DEPENDENCY INJECTION
+    private var repository: FlickrRepositoryProtocol
+    
+    init(repository: FlickrRepositoryProtocol) {
+        self.repository = repository
+    }
+    
+    // MARK:  Public Methods
     
     func searchPhotos(text: String) {
-        repository.searchPhotos(text: text, safeSearch: .safe)
+        repository.searchPhotosBy(text: text, safeSearch: .safe, page: Page(page: 0))
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {
