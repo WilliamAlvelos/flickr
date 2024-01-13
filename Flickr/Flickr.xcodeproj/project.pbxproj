@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C22BD55D2B533F7200682FE4 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C22BD55C2B533F7200682FE4 /* APIKeys.plist */; };
+		C22BD55F2B53410600682FE4 /* APIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C22BD55E2B53410600682FE4 /* APIKeys.plist */; };
 		C2DA32C02B4FEB4A00083CD9 /* FlickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */; };
 		C2DA32C42B4FEB4B00083CD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */; };
 		C2DA32C82B4FEB4B00083CD9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DA32C72B4FEB4B00083CD9 /* Preview Assets.xcassets */; };
@@ -60,7 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C22BD55C2B533F7200682FE4 /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
+		C22BD55E2B53410600682FE4 /* APIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKeys.plist; sourceTree = "<group>"; };
 		C2DA32BC2B4FEB4A00083CD9 /* Flickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flickr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApp.swift; sourceTree = "<group>"; };
 		C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -151,10 +151,10 @@
 				C2DA32EC2B4FFAD900083CD9 /* FlickrRepository */,
 				C2DA32F92B5000EE00083CD9 /* Views */,
 				C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */,
+				C22BD55E2B53410600682FE4 /* APIKeys.plist */,
 				C2DA32C52B4FEB4B00083CD9 /* Flickr.entitlements */,
 				C2DA32C62B4FEB4B00083CD9 /* Preview Content */,
 				C2DA32EA2B4FF17200083CD9 /* Launch Screen.storyboard */,
-				C22BD55C2B533F7200682FE4 /* APIKeys.plist */,
 			);
 			path = Flickr;
 			sourceTree = "<group>";
@@ -382,7 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2DA32EB2B4FF17200083CD9 /* Launch Screen.storyboard in Resources */,
-				C22BD55D2B533F7200682FE4 /* APIKeys.plist in Resources */,
+				C22BD55F2B53410600682FE4 /* APIKeys.plist in Resources */,
 				C2DA32C82B4FEB4B00083CD9 /* Preview Assets.xcassets in Resources */,
 				C2DA32C42B4FEB4B00083CD9 /* Assets.xcassets in Resources */,
 			);
