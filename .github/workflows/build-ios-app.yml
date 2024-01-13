@@ -18,9 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Change to project directory and check
-        run: cd flickr/Flickr && ls -lha
-        
-      - name: Build and run tests
+      - name: Check directory
+        run: ls -lha
+
+      - name: Change to project directory and run tests
         run: |
+          cd flickr
           xcodebuild test -scheme FlickrTests -destination 'platform=iOS Simulator,name=iPhone 15'
