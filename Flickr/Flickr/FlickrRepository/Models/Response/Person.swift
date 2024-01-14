@@ -12,8 +12,15 @@ struct PersonBaseResponse<T: Codable>: Codable {
     let stat: RequestStat
 }
 
-// TODO:  Transform Int into Bool
-struct Person: Codable {
+struct Person: Codable, BuddyIconable, CoverPhotable {    
+    var server: String {
+        return iconserver
+    }
+    
+    var owner: String {
+        return id
+    }
+    
     let id: String
     let nsid: String
     let ispro: Int
@@ -22,7 +29,7 @@ struct Person: Codable {
     let iconfarm: Int
     let pathAlias: String?
     let hasStats: Int
-    let proBadge: String? // TODO:  CREATE AN ENUM ?
+    let proBadge: String?
     let expire: String?
     let username: DataContent<String>
     let realname: DataContent<String>?
@@ -35,20 +42,10 @@ struct Person: Codable {
     let hasAdfree: Int
     let hasFreeStandardShipping: Int
     let hasFreeEducationalResources: Int
-    
-    var ownerPhotoURL: URL? {
-        let string = "https://live.staticflickr.com/\(iconserver)/buddyicons/\(id)_s.jpg"
-        return URL(string: string)
-    }
-    
-    var coverPhotoURL: URL? {
-        let string = "https://farm\(iconfarm).staticflickr.com/\(iconserver)/coverphoto/\(id)_h.jpg"
-        return URL(string: string)
-    }
 }
 
 struct PersonPhotos: Codable {
-    let firstdatetaken: DataContent<String>
-    let firstdate: DataContent<String>
+    let firstdatetaken: DataContent<String>?
+    let firstdate: DataContent<String>?
     let count: DataContent<Int>
 }

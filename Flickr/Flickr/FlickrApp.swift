@@ -33,8 +33,8 @@ struct FlickrApp: App {
                 
                 NavigationStack(path: $searchCoordinator.path) {
                     searchCoordinator.build(screen: .searchView, dependencies: dependencies)
-                        .navigationDestination(for: Photo.self) { photo in
-                            searchCoordinator.build(screen: .photoDetail(photo: photo), dependencies: dependencies)
+                        .navigationDestination(for: Screen.self) { screen in
+                            searchCoordinator.build(screen: screen, dependencies: dependencies)
                         }
                         .sheet(item: $searchCoordinator.sheet) { sheet in
                             searchCoordinator.build(screen: sheet, dependencies: dependencies)

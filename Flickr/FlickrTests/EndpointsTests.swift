@@ -11,7 +11,7 @@ import XCTest
 final class EndpointsTests: XCTestCase {
 
     
-    func testEndpointSeachPhotosOnlySafeSearch() throws {
+    func testEndpointSearchPhotosOnlySafeSearch() throws {
         let request = PhotosBaseRequest(safeSearch: .safe)
         let sut: Requestable = EndPoints.searchPhotos(request: request,
                                                       page: Page(page: 0)).builder()
@@ -29,7 +29,7 @@ final class EndpointsTests: XCTestCase {
         XCTAssertNil(sut.parameters["sort"])
     }
     
-    func testEndpointSeachPhotosWithText() throws {
+    func testEndpointSearchPhotosWithText() throws {
         let request = PhotosBaseRequest(text: "text mocked", safeSearch: .safe)
         let sut: Requestable = EndPoints.searchPhotos(request: request,
                                                       page: Page(page: 0)).builder()
@@ -47,7 +47,7 @@ final class EndpointsTests: XCTestCase {
         XCTAssertNil(sut.parameters["sort"])
     }
     
-    func testEndpointSeachPhotosWithTags() throws {
+    func testEndpointSearchPhotosWithTags() throws {
         let request = PhotosBaseRequest(tags: "tags mocked", safeSearch: .safe)
         let sut: Requestable = EndPoints.searchPhotos(request: request,
                                                       page: Page(page: 0)).builder()
@@ -65,7 +65,7 @@ final class EndpointsTests: XCTestCase {
         XCTAssertNil(sut.parameters["sort"])
     }
     
-    func testEndpointSeachPhotosWithUserId() throws {
+    func testEndpointSearchPhotosWithUserId() throws {
         let request = PhotosBaseRequest(userId: "user_id mocked", safeSearch: .safe)
         let sut: Requestable = EndPoints.searchPhotos(request: request,
                                                       page: Page(page: 0)).builder()
@@ -84,7 +84,7 @@ final class EndpointsTests: XCTestCase {
     }
     
     
-    func testEndpointSeachPhotosWithAllParametersSetAndPageOne() throws {
+    func testEndpointSearchPhotosWithAllParametersSetAndPageOne() throws {
         let request = PhotosBaseRequest(text: "text mocked",
                                         tags: "tags mocked",
                                         userId: "user_id mocked",
@@ -108,7 +108,7 @@ final class EndpointsTests: XCTestCase {
     }
 
     func testUserSearchEndpoint() throws {
-        let sut: Requestable = EndPoints.userSearch(userName: "userName").builder()
+        let sut: Requestable = EndPoints.fetchUser(userName: "userName").builder()
         
         XCTAssertEqual(sut.path, "services/rest")
         XCTAssertEqual(sut.method, .get)

@@ -23,7 +23,6 @@ class UserDetailViewModel: ObservableObject {
         self.repository = repository
         self.userId = userId
     }
-    
 }
 
 extension UserDetailViewModel {
@@ -49,6 +48,7 @@ extension UserDetailViewModel {
                 }
                 
                 self.photos = photosResponse.photos.photo
+                self.status = .loaded
             }.store(in: &cancellable)
     }
 }

@@ -9,12 +9,12 @@
 "NavigationTitle.Home"="Home";
 "NavigationTitle.Search"="Search";
 
-"Search.Placeholder.Photos"="Seach for photos";
-"Search.Placeholder.Tags"="Seach for photos by tag";
-"Search.Placeholder.Groups"="Seach for groups";
+"Search.Placeholder.Tags"="Search for photos by tag";
+"Search.Placeholder.User"="Search for users";
+"Search.Placeholder.Groups"="Search for groups";
 
-"Search.Type.Photos"="Photos";
 "Search.Type.Tags"="Tags";
+"Search.Type.Users"="Users";
 "Search.Type.Groups"="Groups";
 
 "ErrorView.Button.TryAgain"="Try Again";

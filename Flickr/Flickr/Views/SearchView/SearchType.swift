@@ -8,14 +8,14 @@
 import Foundation
 
 enum SearchType: Int {
-    case photos = 0
-    case tags = 1
+    case tags = 0
+    case user = 1
     case groups = 2
     
     var emptyViewType: FLEmptyViewType {
         switch self {
-        case .photos:
-            return FLEmptyViewType.photos
+        case .user:
+            return FLEmptyViewType.user
         case .tags:
             return FLEmptyViewType.tags
         case .groups:
@@ -25,10 +25,10 @@ enum SearchType: Int {
     
     var searchPlaceholder: String {
         switch self {
-        case .photos:
-            return "Search.Placeholder.Photos".local
         case .tags:
             return "Search.Placeholder.Tags".local
+        case .user:
+            return "Search.Placeholder.User".local
         case .groups:
             return "Search.Placeholder.Groups".local
         }

@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum RequestStat: String, Codable {
+    case ok
+}
+
 struct Photos: Codable {
     let total: Int
     let page: Int
@@ -20,11 +24,11 @@ struct PhotosBaseResponse<T: Codable>: Codable {
     let stat: RequestStat
 }
 
-enum RequestStat: String, Codable {
-    case ok
-}
-
-struct Photo: Codable, Identifiable, Hashable {
+struct Photo: Codable, Photable, BuddyIconable {
+    var iconserver: String {
+        return server
+    }
+    
     let id: String
     let owner: String
     let secret: String
@@ -37,21 +41,6 @@ struct Photo: Codable, Identifiable, Hashable {
     let tags: String
     let ownername: String
     let datetaken: String
-    
-    // TODO: MOVE THE live.staticflickr TO A BASE STRING
-    var photoURL: URL? {
-        let string = "https://live.staticflickr.com/\(server)/\(id)_\(secret)_z.jpg"
-        guard let url = URL(string: string) else { return nil }
-        return url
-    }
-    
-    // TODO:  MOVE THIS TO SOMEWHERE ELSE WE CAN REUSE
-    
-    var ownerPhotoURL: URL? {
-        let string = "https://live.staticflickr.com/\(server)/buddyicons/\(owner)_s.jpg"
-        guard let url = URL(string: string) else { return nil }
-        return url
-    }
     
     var resumedPhotoTags: [Tag] {
         let filterTags = tags.components(separatedBy: " ")
@@ -74,11 +63,4 @@ struct Photo: Codable, Identifiable, Hashable {
         
         return datetaken
     }
-}
-
-
-
-struct Tag: Identifiable {
-    let id = UUID()
-    let name: String
 }

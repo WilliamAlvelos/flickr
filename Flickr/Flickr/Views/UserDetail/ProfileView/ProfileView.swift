@@ -14,10 +14,10 @@ struct ProfileView: View {
     var body: some View {
         VStack(alignment: .center) {
             ZStack {
-                ImageView(imageURL: person.coverPhotoURL, contentMode: .fill)
+                ImageView(imageURL: person.coverURL, contentMode: .fill)
                     .frame(width: screenWidth)
                 
-                ImageView(imageURL: person.ownerPhotoURL)
+                ImageView(imageURL: person.iconURL)
                     .frame(width: 100, height: 100)
                     .personImageViewModifier()
             }
@@ -26,7 +26,7 @@ struct ProfileView: View {
                 Text(person.username._content)
                     .font(.callout)
                 
-                if person.ispro == 1 {
+                if person.ispro.boolValue {
                     Image(systemName: "checkmark.seal.fill")
                         .foregroundColor(.secondaryPink)
                 }
@@ -42,6 +42,6 @@ struct ProfileView: View {
             
             Text("🔗 " + person.profileurl._content)
                 .font(.footnote)
-        }
+        }.padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
     }
 }

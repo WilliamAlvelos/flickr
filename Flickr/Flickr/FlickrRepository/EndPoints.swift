@@ -11,9 +11,11 @@ enum EndPoints {
     static let baseURL = URL(string: "https://www.flickr.com/")! // TODO:  MOVE THIS TO A CONFIG FILE
 
     case searchPhotos(request: PhotosBaseRequest, page: Page)
-    case groupsSearch(text: String, page: Page)
+    case searchGroups(text: String, page: Page)
+    case searchUser(userName: String, page: Page)
+    
     case personInfo(userId: String)
-    case userSearch(userName: String)
+    case fetchUser(userName: String)
     
     func builder() -> Requestable {
         switch self {
@@ -32,7 +34,7 @@ enum EndPoints {
                            method: .get,
                            parameters: mergedParameters)
             
-        case .groupsSearch(let text, let page):
+        case .searchGroups(let text, let page):
             return Request(baseURL: EndPoints.baseURL,
                            path: "services/rest",
                            method: .get,
@@ -40,7 +42,15 @@ enum EndPoints {
                                         "text": text,
                                         "page": "\(page.page)"])
             
-        case .userSearch(let userName):
+        case .searchUser(let userName, let page):
+            return Request(baseURL: EndPoints.baseURL,
+                           path: "services/rest",
+                           method: .get,
+                           parameters: ["method": "flickr.people.search",
+                                        "username": userName,
+                                        "page": "\(page.page)"])
+            
+        case .fetchUser(let userName):
             return Request(baseURL: EndPoints.baseURL,
                            path: "services/rest",
                            method: .get,

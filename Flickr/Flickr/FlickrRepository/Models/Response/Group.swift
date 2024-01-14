@@ -20,7 +20,11 @@ struct Groups: Codable {
     let group: [Group]
 }
 
-struct Group: Codable, Identifiable {
+struct Group: Codable, Identifiable, Hashable, BuddyIconable {
+    var owner: String {
+        return nsid
+    }
+    
     var id: String {
         return nsid
     }
@@ -34,4 +38,19 @@ struct Group: Codable, Identifiable {
     let poolCount: String
     let topicCount: String
     let privacy: String
+    let coverphotoUrl: CoverPhotos
+}
+
+struct CoverPhotos: Codable, Hashable {
+    let h: String?
+    let l: String?
+    let s: String?
+    let t: String?
+    
+    var url: URL? {
+        if let urlString = s, let url = URL(string: urlString) {
+            return url
+        }
+        return nil
+    }
 }

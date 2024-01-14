@@ -8,21 +8,15 @@
 import Foundation
 import Combine
 
-
-protocol SearchContent {
-    
-}
-
-
 final class SearchViewModel: ObservableObject {
     @Published var status: Status = .empty
-    @Published var content: [Photo] = []
-    @Published var groups: [Group] = []
-    @Published var searchText: String = ""
-    @Published var searchType: SearchType = SearchType.photos
     
-    private var textPhotos: [Photo] = []
-    private var tagsPhotos: [Photo] = []
+    @Published var photos: [Photo] = []
+    @Published var people: [SearchPerson] = []
+    @Published var groups: [Group] = []
+    
+    @Published var searchText: String = ""
+    @Published var searchType: SearchType = SearchType.tags
     
     private var cancellable: Set<AnyCancellable> = []
     private let repository: FlickrRepositoryProtocol
@@ -38,18 +32,10 @@ final class SearchViewModel: ObservableObject {
     
     func search() {
         switch searchType {
-        case .photos:
-            let request = PhotosBaseRequest(text: searchText, safeSearch: .safe)
-            searchPhotos(request: request, completion: { photos in
-                self.textPhotos = photos
-                self.content = self.textPhotos
-            })
         case .tags:
-            let request = PhotosBaseRequest(tags: searchText, safeSearch: .safe)
-            searchPhotos(request: request, completion: { photos in
-                self.tagsPhotos = photos
-                self.content = self.tagsPhotos
-            })
+            searchPhotos()
+        case .user:
+            searchUsers()
         case .groups:
             searchGroups()
         }
@@ -59,6 +45,8 @@ final class SearchViewModel: ObservableObject {
         
     }
     
+    // MARK:  Coordinator
+    
     func presentPhoto(photo: Photo) {
         coordinator.presentPhoto(photo: photo)
     }
@@ -66,14 +54,17 @@ final class SearchViewModel: ObservableObject {
     func presentGroup(group: Group) {
         coordinator.presentGroup(group: group)
     }
+    
+    func presentPerson(person: String) {
+        coordinator.presentUserProfile(owner: person)
+    }
 }
 
 // MARK:  Private Methods
 
 extension SearchViewModel {
-    private func searchPhotos(request: PhotosBaseRequest, 
-                              completion: @escaping ([Photo]) -> Void) {
-        
+    private func searchPhotos() {
+        let request = PhotosBaseRequest(tags: searchText, safeSearch: .safe)
         self.status = .loading
         
         repository.searchPhotosBy(request: request, page: page)
@@ -86,7 +77,25 @@ extension SearchViewModel {
                     self.status = .error(error: error)
                 }
             } receiveValue: { response in
-                completion(response.photos.photo)
+                self.photos = response.photos.photo
+                self.status = .loaded
+            }.store(in: &cancellable)
+    }
+    
+    private func searchUsers() {
+        self.status = .loading
+
+        repository.searchUserBy(userName: searchText, page: page)
+            .receive(on: RunLoop.main)
+            .sink { completion in
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.status = .error(error: error)
+                }
+            } receiveValue: { response in
+                self.people = response.people.person
                 self.status = .loaded
             }.store(in: &cancellable)
     }

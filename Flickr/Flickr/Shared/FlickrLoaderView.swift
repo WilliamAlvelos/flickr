@@ -1,12 +1,11 @@
 //
-//  FLLoaderView.swift
+//  FlickrLoaderView.swift
 //  Flickr
 //
 //  Created by William de Alvelos on 14/01/2024.
 //
 
 import SwiftUI
-
 
 struct FlickrLoaderView: View {
     @State private var blueScale: CGFloat = 1.0

@@ -20,7 +20,7 @@ extension AppCoordinator: HomeViewWireframe {
     }
     
     func presentUserProfile(owner: String) {
-        push(screen: Screen.userDetails(owner: owner))
+        push(screen: .userDetails(owner: owner))
     }
 }
 
@@ -33,8 +33,7 @@ protocol SearchViewWireframe {
 }
 
 extension AppCoordinator: SearchViewWireframe {
-    
     func presentGroup(group: Group) {
-        print("presentGroup")
+        push(screen: .groupDetails(group: group))
     }
 }

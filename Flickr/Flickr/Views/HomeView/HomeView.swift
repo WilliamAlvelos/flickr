@@ -24,13 +24,15 @@ struct HomeView: View {
             case .loaded:
                 GeometryReader { geometry in
                     List(viewModel.photos) { photo in
-                        PhotoView(photo: photo, screenWidth: geometry.size.width)
-                            .onAppear() {
-                                viewModel.loadMoreIfNeeded(item: photo)
-                            }.listRowSeparator(.hidden)
-                            .onTapGesture {
-                                viewModel.presentPhoto(photo: photo)
-                            }
+                        PhotoView(photo: photo, screenWidth: geometry.size.width, userPhotoTapGesture: {
+                            viewModel.presentUserProfile(owner: photo.owner)
+                        })
+                        .onAppear() {
+                            viewModel.loadMoreIfNeeded(item: photo)
+                        }.listRowSeparator(.hidden)
+                        .onTapGesture {
+                            viewModel.presentPhoto(photo: photo)
+                        }
                     }
                 }
             }
