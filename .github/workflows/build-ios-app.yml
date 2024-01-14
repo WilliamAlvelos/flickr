@@ -5,7 +5,7 @@ on:
     branches:
       - '*'
       - '!develop'
-      # - '!main'
+      - '!main'
   pull_request:
     branches: [ "main", "develop" ]
     
