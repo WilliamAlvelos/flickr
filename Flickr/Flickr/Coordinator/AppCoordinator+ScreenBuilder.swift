@@ -31,10 +31,10 @@ enum Screen: Identifiable, Hashable {
 
 extension AppCoordinator {
     @ViewBuilder
-    func build(screen: Screen) -> some View {
+    func build(screen: Screen, dependencies: DependenciesProtocol) -> some View {
         switch screen {
         case .homeView:
-            HomeView(viewModel: HomeViewModel(repository: dependencies.repository))
+            HomeView(viewModel: HomeViewModel(repository: dependencies.repository, coordinator: self))
         case .searchView:
             SearchView(viewModel: SearchViewModel(repository: dependencies.repository))
         case .photoDetail(let photo):

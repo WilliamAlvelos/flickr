@@ -1,5 +1,5 @@
 //
-//  NavigationRouter.swift
+//  AppCoordinator+Wireframe.swift
 //  Flickr
 //
 //  Created by William de Alvelos on 12/01/2024.
@@ -22,4 +22,11 @@ extension AppCoordinator: HomeViewWireframe {
     func presentUserProfile(owner: String) {
         push(screen: Screen.userDetails(owner: owner))
     }
+}
+
+// MARK:  SearchViewWireframe
+
+protocol SearchViewWireframe {
+
+    
 }

@@ -17,9 +17,11 @@ final class HomeViewModel: ObservableObject {
     private let repository: FlickrRepositoryProtocol
     private var cancellable: Set<AnyCancellable> = []
     private var page: Page = Page(page: 0)
+    private var coordinator: HomeViewWireframe
     
-    init(repository: FlickrRepositoryProtocol) {
+    init(repository: FlickrRepositoryProtocol, coordinator: HomeViewWireframe) {
         self.repository = repository
+        self.coordinator = coordinator
     }
     
     // MARK:  Public Methods
@@ -37,6 +39,14 @@ final class HomeViewModel: ObservableObject {
     func loadFirstPage() {
         page.reset()
         searchPhotos()
+    }
+    
+    func presentPhoto(photo: Photo) {
+        coordinator.presentPhoto(photo: photo)
+    }
+    
+    func presentUserProfile(owner: String) {
+        coordinator.presentUserProfile(owner: owner)
     }
 }
 
@@ -64,6 +74,7 @@ extension HomeViewModel {
                 } else {
                     self.photos += photos.photos.photo
                 }
+                self.status = .loaded
             }.store(in: &cancellable)
     }
 }

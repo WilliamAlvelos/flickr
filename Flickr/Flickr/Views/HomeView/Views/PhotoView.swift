@@ -8,26 +8,22 @@
 import SwiftUI
 
 struct PhotoView: View {
-    @EnvironmentObject var coordinator: AppCoordinator
-
     let photo: Photo
     let screenWidth: CGFloat
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            ImageView(imageURL: photo.photoURL, contentMode: .fill)
+            ImageView(imageURL: photo.photoURL, contentMode: .fit)
                 .frame(width: screenWidth)
                 .clipped()
             
-            TagsView(tags: photo.photoTags)
+            TagsView(tags: photo.resumedPhotoTags)
+                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
             
-            HStack {
+            HStack(alignment: .center) {
                 ImageView(imageURL: photo.ownerPhotoURL)
                     .frame(width: 40, height: 40)
                     .personImageViewModifier()
-                    .onTapGesture {
-                        coordinator.presentUserProfile(owner: photo.owner)
-                    }
                 
                 VStack(alignment: .leading) {
                     Text(photo.title)
@@ -36,6 +32,12 @@ struct PhotoView: View {
                     Text(photo.ownername)
                         .font(.footnote)
                 }
+                
+                Spacer()
+                
+                Text(photo.dateTakesFormated)
+                    .font(.footnote)
+                    .padding()
             }
         }
     }
