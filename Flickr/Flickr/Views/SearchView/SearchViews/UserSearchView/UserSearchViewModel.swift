@@ -8,57 +8,13 @@
 import Foundation
 import Combine
 
-final class UserSearchViewModel: ObservableObject {
-    @Published var status: Status = .empty
-    @Published var people: [SearchPerson] = []
-    
-    private var cancellable: Set<AnyCancellable> = []
-    private let repository: FlickrRepositoryProtocol
-    private let coordinator: SearchViewWireframe
-    
-    private var page: Page = Page(page: 1)
-    private var isLoadingNewPage = false
+final class UserSearchViewModel: SearchContentViewModel<SearchPerson> {
 
-    private var currentSearch: String = ""
-    
-    init(repository: FlickrRepositoryProtocol, coordinator: SearchViewWireframe) {
-        self.repository = repository
-        self.coordinator = coordinator
+    override func search() {
+        searchPeople()
     }
     
-    // MARK:  Public Methods
-    
-    func search(userName: String) {
-        currentSearch = userName
-        page.reset()
-        searchUsers()
-    }
-    
-    func tryAgain() {
-        searchUsers()
-    }
-    
-    func loadMoreIfNeeded() {
-        if isLoadingNewPage {
-            return
-        }
-        isLoadingNewPage = true
-        page.nextPage()
-        searchUsers()
-    }
-    
-    // MARK:  Coordinator
-    
-    func presentPerson(person: String) {
-        coordinator.presentUserProfile(owner: person)
-    }
-}
-
-// MARK:  Private Methods
-
-extension UserSearchViewModel {
-    
-    private func searchUsers() {
+    func searchPeople() {
         if page.page == 1 {
             self.status = .loading
         }
@@ -79,12 +35,12 @@ extension UserSearchViewModel {
                 }
                 
                 if response.people.page == "1" { // WHY FLICKR 🤣
-                    self.people = response.people.person
+                    self.content = response.people.person
                 } else {
-                    self.people += response.people.person
+                    self.content += response.people.person
                     self.isLoadingNewPage = false
                 }
                 self.status = .loaded
-            }.store(in: &cancellable)
+            }.store(in: &cancellables)
     }
 }

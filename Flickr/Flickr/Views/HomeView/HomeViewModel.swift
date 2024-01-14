@@ -15,7 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var searchText = "yorkshire"
     
     private let repository: FlickrRepositoryProtocol
-    private var cancellable: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     private var page: Page = Page(page: 1)
     private var coordinator: HomeViewWireframe
     private var isLoadingNewPage: Bool = false
@@ -83,6 +83,6 @@ extension HomeViewModel {
                     self.isLoadingNewPage = false
                 }
                 self.status = .loaded
-            }.store(in: &cancellable)
+            }.store(in: &cancellables)
     }
 }

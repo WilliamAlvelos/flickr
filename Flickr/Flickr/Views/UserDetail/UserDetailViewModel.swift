@@ -15,7 +15,7 @@ class UserDetailViewModel: ObservableObject {
     @Published var person: Person? = nil
     
     private let repository: FlickrRepositoryProtocol
-    private var cancellable: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     private var page: Page = Page(page: 1)
     private let userId: String
     
@@ -49,6 +49,6 @@ extension UserDetailViewModel {
                 
                 self.photos = photosResponse.photos.photo
                 self.status = .loaded
-            }.store(in: &cancellable)
+            }.store(in: &cancellables)
     }
 }

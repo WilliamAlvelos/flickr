@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserSearchView: View {
-    @StateObject var viewModel: UserSearchViewModel
+    @StateObject var viewModel: SearchContentViewModel<SearchPerson>
     
     var body: some View {
         VStack {
@@ -24,7 +24,7 @@ struct UserSearchView: View {
             case .loaded:
                 List {
                     Section {
-                        ForEach(viewModel.people) { person in
+                        ForEach(viewModel.content) { person in
                             SearchPersonView(person: person)
                                 .onTapGesture {
                                     viewModel.presentPerson(person: person.nsid)

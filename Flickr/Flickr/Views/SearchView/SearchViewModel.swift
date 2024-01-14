@@ -5,28 +5,7 @@
 //  Created by William de Alvelos on 11/01/2024.
 //
 
-import Foundation
 import Combine
-
-//final class SearchContentViewModel<T: Codable>: ObservableObject {
-//    @Published var status: Status = .empty
-//    @Published var content: [Group] = []
-//        
-//    private var cancellable: Set<AnyCancellable> = []
-//    private let repository: FlickrRepositoryProtocol
-//    private let coordinator: SearchViewWireframe
-//    
-//    private var page: Page = Page(page: 1)
-//    private var isLoadingNewPage = false
-//    
-//    private var currentSearch: String = ""
-//    
-//    init(repository: FlickrRepositoryProtocol, coordinator: SearchViewWireframe) {
-//        self.repository = repository
-//        self.coordinator = coordinator
-//    }
-//}
-
 
 final class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -35,8 +14,8 @@ final class SearchViewModel: ObservableObject {
     private let repository: FlickrRepositoryProtocol
     private let coordinator: SearchViewWireframe
     
-    var userViewModel: UserSearchViewModel
     var tagsViewModel: TagsSearchViewModel
+    var userViewModel: UserSearchViewModel
     var groupsViewModel: GroupsSearchViewModel
     
     init(repository: FlickrRepositoryProtocol, coordinator: SearchViewWireframe) {
@@ -60,11 +39,11 @@ extension SearchViewModel {
     func search() {
         switch searchType {
         case .tags:
-            tagsViewModel.search(tags: searchText)
+            tagsViewModel.search(text: searchText)
         case .user:
-            userViewModel.search(userName: searchText)
+            userViewModel.search(text: searchText)
         case .groups:
-            groupsViewModel.search(text: searchText)
+            groupsViewModel.search(text: searchText)            
         }
     }
 }

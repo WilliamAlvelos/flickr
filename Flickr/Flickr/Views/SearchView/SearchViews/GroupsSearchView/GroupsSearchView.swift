@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GroupsSearchView: View {
-    @StateObject var viewModel: GroupsSearchViewModel
+    @StateObject var viewModel: SearchContentViewModel<Group>
     
     var body: some View {
         VStack {
@@ -24,7 +24,7 @@ struct GroupsSearchView: View {
             case .loaded:
                 List {
                     Section {
-                        ForEach(viewModel.groups, id: \.identifier) { group in
+                        ForEach(viewModel.content, id: \.identifier) { group in
                             SearchGroupView(group: group)
                                 .onTapGesture {
                                     viewModel.presentGroup(group: group)

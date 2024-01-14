@@ -5,7 +5,6 @@
 //  Created by William de Alvelos on 11/01/2024.
 //
 
-import Foundation
 import Combine
 
 protocol FlickrRepositoryProtocol {

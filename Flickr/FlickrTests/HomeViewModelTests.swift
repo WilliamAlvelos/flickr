@@ -11,7 +11,7 @@ import Combine
 
 final class HomeViewModelTests: XCTestCase {
     
-    private var cancellable: Set<AnyCancellable> = []
+    private var cancellables: Set<AnyCancellable> = []
     private let timeout = 10.0
     var viewModel: HomeViewModel!
     var repository: FakeFlickrRepository!
@@ -56,7 +56,7 @@ final class HomeViewModelTests: XCTestCase {
         viewModel.$status.sink { status in
             guard status != .loading else { return }
             expectation.fulfill()
-        }.store(in: &cancellable)
+        }.store(in: &cancellables)
         
         wait(for: [expectation], timeout: timeout)
         
@@ -76,7 +76,7 @@ final class HomeViewModelTests: XCTestCase {
             print(status)
             guard status != .loading else { return }
             expectation.fulfill()
-        }.store(in: &cancellable)
+        }.store(in: &cancellables)
         
         wait(for: [expectation], timeout: timeout)
         
@@ -95,7 +95,7 @@ final class HomeViewModelTests: XCTestCase {
             print(status)
             guard status != .loading else { return }
             expectation.fulfill()
-        }.store(in: &cancellable)
+        }.store(in: &cancellables)
         
         wait(for: [expectation], timeout: timeout)
         

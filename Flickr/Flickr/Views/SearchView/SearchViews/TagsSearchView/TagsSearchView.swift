@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TagsSearchView: View {
-    @StateObject var viewModel: TagsSearchViewModel
+    @StateObject var viewModel: SearchContentViewModel<Photo>
     
     var body: some View {
         VStack {
@@ -25,7 +25,7 @@ struct TagsSearchView: View {
                 GeometryReader { geometry in
                     List {
                         Section {
-                            ForEach(viewModel.photos, id: \.identifier) { photo in
+                            ForEach(viewModel.content, id: \.identifier) { photo in
                                 PhotoView(photo: photo,
                                           screenWidth: geometry.size.width,
                                           userPhotoTapGesture: {

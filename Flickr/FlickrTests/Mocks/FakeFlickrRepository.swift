@@ -5,7 +5,6 @@
 //  Created by William de Alvelos on 14/01/2024.
 //
 
-import Foundation
 import Combine
 @testable import Flickr
 
