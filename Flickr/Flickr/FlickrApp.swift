@@ -9,36 +9,41 @@ import SwiftUI
 
 @main
 struct FlickrApp: App {
-    @StateObject private var coordinator = AppCoordinator()
-    private let dependencies: Dependencies = Dependencies()
+    @StateObject private var homeCoordinator = AppCoordinator()
+    @StateObject private var searchCoordinator = AppCoordinator()
+    
+    private let dependencies: DependenciesProtocol = Dependencies()
     
     var body: some Scene {
         WindowGroup {
             TabView {
-                NavigationStack(path: $coordinator.path) {
-                    coordinator.build(screen: .homeView)
+                
+                NavigationStack(path: $homeCoordinator.path) {
+                    homeCoordinator.build(screen: .homeView, dependencies: dependencies)
                         .navigationDestination(for: Screen.self) { screen in
-                            coordinator.build(screen: screen)
+                            homeCoordinator.build(screen: screen, dependencies: dependencies)
                         }
-                        .sheet(item: $coordinator.sheet) { sheet in
-                            coordinator.build(screen: sheet)
+                        .sheet(item: $homeCoordinator.sheet) { sheet in
+                            homeCoordinator.build(screen: sheet, dependencies: dependencies)
                         }
                 }.tabItem {
                     Label("Home",
                           systemImage: "photo.artframe.circle")
                 }
                 
-                NavigationStack(path: $coordinator.path) {
-                    coordinator.build(screen: .searchView)
+                NavigationStack(path: $searchCoordinator.path) {
+                    searchCoordinator.build(screen: .searchView, dependencies: dependencies)
                         .navigationDestination(for: Photo.self) { photo in
-                            coordinator.build(screen: .photoDetail(photo: photo))
+                            searchCoordinator.build(screen: .photoDetail(photo: photo), dependencies: dependencies)
                         }
-                    
+                        .sheet(item: $searchCoordinator.sheet) { sheet in
+                            searchCoordinator.build(screen: sheet, dependencies: dependencies)
+                        }
                 }.tabItem {
                     Label("Search",
                           systemImage: "magnifyingglass.circle")
                 }
             }
-        }.environmentObject(coordinator)
+        }
     }
 }

@@ -11,10 +11,8 @@ import Combine
 protocol FlickrRepositoryProtocol {
     func fetchPhotosBy(userId: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error>
     func searchPhotosBy(text: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error>
-    
     func findUserBy(userName: String) -> AnyPublisher<UserBaseRequest<User>, Error>
     func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseRequest<Person>, Error>
-
 }
 
 final class FlickrRepository: FlickrRepositoryProtocol {

@@ -7,6 +7,10 @@
 
 import Foundation
 
-class Dependencies {
+protocol DependenciesProtocol {
+    var repository: FlickrRepositoryProtocol { get }
+}
+
+class Dependencies: DependenciesProtocol {
     lazy var repository: FlickrRepositoryProtocol = FlickrRepository()
 }

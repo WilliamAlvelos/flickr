@@ -34,10 +34,6 @@ struct Photo: Codable, Identifiable, Hashable {
     let ispublic: Int
     let isfriend: Int
     let isfamily: Int
-    
-    // MARK:  Extras
-//    let latitude: String 🤣🤣
-//    let longitude: String
     let tags: String
     let ownername: String
     let datetaken: String
@@ -57,12 +53,26 @@ struct Photo: Codable, Identifiable, Hashable {
         return url
     }
     
-    var photoTags: [Tag] {
+    var resumedPhotoTags: [Tag] {
         let filterTags = tags.components(separatedBy: " ")
             .filter({ !$0.isEmpty })
             .prefix(4)
         
         return Array(filterTags.map({ Tag(name: $0) }))
+    }
+    
+    var dateTakesFormated: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: datetaken) {
+            dateFormatter.dateFormat = "MMMM d, yyyy"
+            
+            let formattedDateString = dateFormatter.string(from: date)
+            return formattedDateString
+        }
+        
+        return datetaken
     }
 }
 

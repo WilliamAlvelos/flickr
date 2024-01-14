@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject var viewModel: HomeViewModel
-    @EnvironmentObject var coordinator: AppCoordinator
+    @StateObject var viewModel: HomeViewModel
     
     var body: some View {
         switch viewModel.status {
@@ -27,7 +26,7 @@ struct HomeView: View {
                             viewModel.loadMoreIfNeeded(item: photo)
                         }.listRowSeparator(.hidden)
                         .onTapGesture {
-                            coordinator.presentPhoto(photo: photo)
+                            viewModel.presentPhoto(photo: photo)
                         }
                 }
             }.refreshable {

@@ -8,8 +8,6 @@
 import SwiftUI
 
 final class AppCoordinator: ObservableObject {
-    internal let dependencies: Dependencies = Dependencies()
-
     @Published var path = NavigationPath()
     @Published var sheet: Screen?
     

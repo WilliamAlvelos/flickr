@@ -7,24 +7,11 @@
 
 import Foundation
 
-struct Page {
-    var page: Int
-    
-    mutating func nextPage() {
-        self.page += 1
-    }
-    
-    mutating func reset() {
-        self.page = 0
-    }
-}
-
 enum EndPoints {
-    static let baseURL = URL(string: "https://www.flickr.com/")!
+    static let baseURL = URL(string: "https://www.flickr.com/")! // TODO:  MOVE THIS TO A CONFIG FILE
 
     case search(text: String, safeSearch: SafeSearch, page: Page)
     case photos(userId: String, safeSearch: SafeSearch, page: Page)
-    
     case personInfo(userId: String)
     case userSearch(userName: String)
     

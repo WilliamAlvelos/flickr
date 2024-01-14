@@ -9,12 +9,12 @@ import SwiftUI
 
 struct UserDetailView: View {
     
-    @ObservedObject var viewModel: UserDetailViewModel
+    @StateObject var viewModel: UserDetailViewModel
     
     var body: some View {
         switch viewModel.status {
         case .empty:
-            EmptyView() // TODO:  SHOW THAT THIS PERSON HASNT PHOTOS YET
+            FLEmptyView()
         case .error(let error):
             FlickrErrorView(errorMessage: error.localizedDescription) {
                 viewModel.fetchPhotosAndUserDetails()

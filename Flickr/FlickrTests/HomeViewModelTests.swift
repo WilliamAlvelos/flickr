@@ -6,30 +6,116 @@
 //
 
 import XCTest
+import Combine
+@testable import Flickr
 
 final class HomeViewModelTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    private var cancellable: Set<AnyCancellable> = []
+    private let timeout = 10.0
+    var viewModel: HomeViewModel!
+    var repository: FakeFlickrRepository!
+    var coordinator: FakeHomeViewCoordinator!
+    
+    override func setUp() {
+        super.setUp()
+        repository = FakeFlickrRepository()
+        coordinator = FakeHomeViewCoordinator()
+        viewModel = HomeViewModel(repository: repository, coordinator: coordinator)
+    }
+    
+    override func tearDown() {
+        viewModel = nil
+        repository = nil
+        coordinator = nil
+        super.tearDown()
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testCoordinatorShouldHavePhotoAfterPresenter() {
+        let photo = PhotoFactory.new()
+        XCTAssertNil(coordinator.didPresentPhoto)
+        viewModel.presentPhoto(photo: photo)
+        XCTAssertEqual(coordinator.didPresentPhoto, photo)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testCoordinatorShouldHaveOwnerAfterPresenter() {
+        let owner = "William Alvelos"
+        XCTAssertNil(coordinator.didPresentOwner)
+        viewModel.presentUserProfile(owner: owner)
+        XCTAssertEqual(coordinator.didPresentOwner, owner)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testLoadFirstPageSuccess() throws {
+        repository.mockedPhotos = [PhotoFactory.new(id: "1")]
+        repository.shouldThrowError = false
+        
+        let expectation = XCTestExpectation(description: "Load photos expectation")
+        
+        viewModel.loadFirstPage()
+        viewModel.$status.sink { status in
+            guard status != .loading else { return }
+            expectation.fulfill()
+        }.store(in: &cancellable)
+        
+        wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertEqual(viewModel.photos.count, 1)
+        XCTAssertEqual(viewModel.status, .loaded)
     }
+    
+    func testLoadFirstPageEmpty() throws {
+        repository.mockedPhotos = []
+        repository.shouldThrowError = false
+        
+        let expectation = XCTestExpectation(description: "Load photos expectation")
+        
+        viewModel.loadFirstPage()
+        
+        viewModel.$status.sink { status in
+            print(status)
+            guard status != .loading else { return }
+            expectation.fulfill()
+        }.store(in: &cancellable)
+        
+        wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertEqual(viewModel.photos.count, 0)
+        XCTAssertEqual(viewModel.status, .empty)
+    }
+    
+    func testLoadFirstPageError() throws {
+        repository.shouldThrowError = true
+        
+        let expectation = XCTestExpectation(description: "Load photos expectation")
+        
+        viewModel.loadFirstPage()
+        
+        viewModel.$status.sink { status in
+            print(status)
+            guard status != .loading else { return }
+            expectation.fulfill()
+        }.store(in: &cancellable)
+        
+        wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertEqual(viewModel.photos.count, 0)
+        XCTAssertEqual(viewModel.status, .error(error: repository.mockedError))
+    }
+}
 
+// MARK: FakeHomeViewCoordinator
+
+class FakeHomeViewCoordinator: HomeViewWireframe {
+    
+    var didPresentPhoto: Photo?
+    var didPresentOwner: String?
+    
+    func presentPhoto(photo: Photo) {
+        didPresentPhoto = photo
+    }
+    
+    func presentUserProfile(owner: String) {
+        didPresentOwner = owner
+    }
 }
