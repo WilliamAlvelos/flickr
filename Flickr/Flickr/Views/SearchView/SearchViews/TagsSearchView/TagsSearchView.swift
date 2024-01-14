@@ -1,23 +1,23 @@
 //
-//  HomeView.swift
+//  TagsSearchView.swift
 //  Flickr
 //
-//  Created by William de Alvelos on 11/01/2024.
+//  Created by William de Alvelos on 14/01/2024.
 //
 
 import SwiftUI
 
-struct HomeView: View {
-    @StateObject var viewModel: HomeViewModel
+struct TagsSearchView: View {
+    @StateObject var viewModel: TagsSearchViewModel
     
     var body: some View {
         VStack {
             switch viewModel.status {
             case .empty:
-                FLEmptyView()
+                FLEmptyView(type: SearchType.tags.emptyViewType)
             case .error(let error):
                 FlickrErrorView(errorMessage: error.localizedDescription) {
-                    viewModel.loadFirstPage()
+                    viewModel.tryAgain()
                 }
             case .loading:
                 FlickrLoaderView()
@@ -26,8 +26,10 @@ struct HomeView: View {
                     List {
                         Section {
                             ForEach(viewModel.photos, id: \.identifier) { photo in
-                                PhotoView(photo: photo, screenWidth: geometry.size.width, userPhotoTapGesture: {
-                                    viewModel.presentUserProfile(owner: photo.owner)
+                                PhotoView(photo: photo,
+                                          screenWidth: geometry.size.width,
+                                          userPhotoTapGesture: {
+                                    viewModel.presentPerson(person: photo.owner)
                                 })
                                 .listRowSeparator(.hidden)
                                 .onTapGesture {
@@ -37,20 +39,9 @@ struct HomeView: View {
                         } footer: {
                             lastRowView
                         }
-
-                    }
+                    }.listStyle(.plain)
                 }
             }
-        }.refreshable {
-            viewModel.loadFirstPage()
-        }.onFirstAppear {
-            viewModel.loadFirstPage()
-        }
-        .navigationTitle("Flickr")
-        .listStyle(.plain)
-        .searchable(text: $viewModel.searchText)
-        .onSubmit(of: .search) {
-            viewModel.loadFirstPage()
         }
     }
     

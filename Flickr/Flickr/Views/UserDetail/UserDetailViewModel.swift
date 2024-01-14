@@ -16,7 +16,7 @@ class UserDetailViewModel: ObservableObject {
     
     private let repository: FlickrRepositoryProtocol
     private var cancellable: Set<AnyCancellable> = []
-    private var page: Page = Page(page: 0)
+    private var page: Page = Page(page: 1)
     private let userId: String
     
     init(repository: FlickrRepositoryProtocol, userId: String) {
@@ -29,7 +29,7 @@ extension UserDetailViewModel {
     func fetchPhotosAndUserDetails() {
         let request = PhotosBaseRequest(userId: userId, sort: .relevance, safeSearch: .safe)
         
-        repository.searchPhotosBy(request: request, page: Page(page: 0))
+        repository.searchPhotosBy(request: request, page: page)
             .zip(repository.fetchPersonInfo(userId: userId))
             .receive(on: RunLoop.main)
             .sink { completion in

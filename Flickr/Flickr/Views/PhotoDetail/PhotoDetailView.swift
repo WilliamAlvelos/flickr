@@ -36,6 +36,9 @@ struct PhotoDetailView: View {
                     .padding(16)
                 }
             }
+            
+            // TODO:  DISPLAY PHOTO COMMENTS
+            Text(photo.id)
         }
     }
 }

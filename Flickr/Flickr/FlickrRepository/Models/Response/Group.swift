@@ -29,6 +29,7 @@ struct Group: Codable, Identifiable, Hashable, BuddyIconable {
         return nsid
     }
     
+    let identifier = UUID()
     let nsid: String
     let name: String
     let eighteenplus: Int

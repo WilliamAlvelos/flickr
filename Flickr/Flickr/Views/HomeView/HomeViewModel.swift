@@ -16,8 +16,9 @@ final class HomeViewModel: ObservableObject {
     
     private let repository: FlickrRepositoryProtocol
     private var cancellable: Set<AnyCancellable> = []
-    private var page: Page = Page(page: 0)
+    private var page: Page = Page(page: 1)
     private var coordinator: HomeViewWireframe
+    private var isLoadingNewPage: Bool = false
     
     init(repository: FlickrRepositoryProtocol, coordinator: HomeViewWireframe) {
         self.repository = repository
@@ -26,13 +27,11 @@ final class HomeViewModel: ObservableObject {
     
     // MARK:  Public Methods
     
-    func loadMoreIfNeeded(item: Photo) {
-        guard let itemIndex = self.photos.lastIndex(where: { $0.id == item.id }) else { return }
-        let distanceToFetch = 10
-
-        if itemIndex.distance(to: self.photos.endIndex) < distanceToFetch {
+    func loadMoreIfNeeded() {
+        if !isLoadingNewPage {
             page.nextPage()
             searchPhotos()
+            isLoadingNewPage = true
         }
     }
 
@@ -40,6 +39,8 @@ final class HomeViewModel: ObservableObject {
         page.reset()
         searchPhotos()
     }
+    
+    // MARK:  Coordinator
     
     func presentPhoto(photo: Photo) {
         coordinator.presentPhoto(photo: photo)
@@ -54,7 +55,11 @@ final class HomeViewModel: ObservableObject {
 
 extension HomeViewModel {
     private func searchPhotos() {
-        let request = PhotosBaseRequest(text: searchText, sort: .relevance, safeSearch: .safe)
+        
+        guard !searchText.isEmpty else { return }
+        let request = PhotosBaseRequest(text: searchText,
+                                        sort: .relevance,
+                                        safeSearch: .safe)
 
         repository.searchPhotosBy(request: request, page: page)
             .receive(on: RunLoop.main)
@@ -75,6 +80,7 @@ extension HomeViewModel {
                     self.photos = photos.photos.photo
                 } else {
                     self.photos += photos.photos.photo
+                    self.isLoadingNewPage = false
                 }
                 self.status = .loaded
             }.store(in: &cancellable)

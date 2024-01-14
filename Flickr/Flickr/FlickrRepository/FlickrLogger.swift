@@ -9,7 +9,7 @@ import Foundation
 
 final class FlickrLogger {
     
-    private static let isLogEnabled: Bool = true
+    private static let isLogEnabled: Bool = false
     
     static func logRequest(request: URLRequest) {
         guard isLogEnabled else { return }

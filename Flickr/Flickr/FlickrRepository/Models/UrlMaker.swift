@@ -24,9 +24,15 @@ protocol CoverPhotable {
     var id: String { get }
 }
 
-// TODO: Create a file for the base url
+// TODO: Create a file to take care of all these URLS
 extension BuddyIconable {
-    var iconURL: URL? { URL(string: "https://live.staticflickr.com/\(iconserver)/buddyicons/\(owner)_r.jpg") }
+    var iconURL: URL? {
+        if iconserver == "0" { // if the user doesn't have a BuddyIcon the iconserver will be 0
+            return URL(string: "https://www.flickr.com/images/buddyicon.gif")
+        } else {
+            return URL(string: "https://live.staticflickr.com/\(iconserver)/buddyicons/\(owner)_r.jpg")
+        }
+    }
 }
 
 extension Photable {

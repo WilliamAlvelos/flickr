@@ -27,6 +27,12 @@
 		C22BD58D2B54376700682FE4 /* UrlMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD58C2B54376700682FE4 /* UrlMaker.swift */; };
 		C22BD5922B5444CB00682FE4 /* SearchPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5912B5444CB00682FE4 /* SearchPersonView.swift */; };
 		C22BD5942B54456400682FE4 /* SearchGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5932B54456400682FE4 /* SearchGroupView.swift */; };
+		C22BD5982B546F9E00682FE4 /* UserSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5972B546F9E00682FE4 /* UserSearchView.swift */; };
+		C22BD59A2B546FAA00682FE4 /* UserSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5992B546FAA00682FE4 /* UserSearchViewModel.swift */; };
+		C22BD59D2B54717C00682FE4 /* TagsSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD59C2B54717C00682FE4 /* TagsSearchView.swift */; };
+		C22BD59F2B54718500682FE4 /* TagsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD59E2B54718500682FE4 /* TagsSearchViewModel.swift */; };
+		C22BD5A22B54719B00682FE4 /* GroupsSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5A12B54719B00682FE4 /* GroupsSearchView.swift */; };
+		C22BD5A42B5471A500682FE4 /* GroupsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22BD5A32B5471A500682FE4 /* GroupsSearchViewModel.swift */; };
 		C2DA32C02B4FEB4A00083CD9 /* FlickrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */; };
 		C2DA32C42B4FEB4B00083CD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */; };
 		C2DA32C82B4FEB4B00083CD9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2DA32C72B4FEB4B00083CD9 /* Preview Assets.xcassets */; };
@@ -98,6 +104,12 @@
 		C22BD58C2B54376700682FE4 /* UrlMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlMaker.swift; sourceTree = "<group>"; };
 		C22BD5912B5444CB00682FE4 /* SearchPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPersonView.swift; sourceTree = "<group>"; };
 		C22BD5932B54456400682FE4 /* SearchGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupView.swift; sourceTree = "<group>"; };
+		C22BD5972B546F9E00682FE4 /* UserSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchView.swift; sourceTree = "<group>"; };
+		C22BD5992B546FAA00682FE4 /* UserSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSearchViewModel.swift; sourceTree = "<group>"; };
+		C22BD59C2B54717C00682FE4 /* TagsSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSearchView.swift; sourceTree = "<group>"; };
+		C22BD59E2B54718500682FE4 /* TagsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSearchViewModel.swift; sourceTree = "<group>"; };
+		C22BD5A12B54719B00682FE4 /* GroupsSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSearchView.swift; sourceTree = "<group>"; };
+		C22BD5A32B5471A500682FE4 /* GroupsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsSearchViewModel.swift; sourceTree = "<group>"; };
 		C2DA32BC2B4FEB4A00083CD9 /* Flickr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flickr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2DA32BF2B4FEB4A00083CD9 /* FlickrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrApp.swift; sourceTree = "<group>"; };
 		C2DA32C32B4FEB4B00083CD9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -241,6 +253,43 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		C22BD5952B546F7000682FE4 /* SearchViews */ = {
+			isa = PBXGroup;
+			children = (
+				C22BD5A02B54718A00682FE4 /* GroupsSearchView */,
+				C22BD59B2B54716D00682FE4 /* TagsSearchView */,
+				C22BD5962B546F8900682FE4 /* UserSearchView */,
+			);
+			path = SearchViews;
+			sourceTree = "<group>";
+		};
+		C22BD5962B546F8900682FE4 /* UserSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				C22BD5972B546F9E00682FE4 /* UserSearchView.swift */,
+				C22BD5992B546FAA00682FE4 /* UserSearchViewModel.swift */,
+			);
+			path = UserSearchView;
+			sourceTree = "<group>";
+		};
+		C22BD59B2B54716D00682FE4 /* TagsSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				C22BD59C2B54717C00682FE4 /* TagsSearchView.swift */,
+				C22BD59E2B54718500682FE4 /* TagsSearchViewModel.swift */,
+			);
+			path = TagsSearchView;
+			sourceTree = "<group>";
+		};
+		C22BD5A02B54718A00682FE4 /* GroupsSearchView */ = {
+			isa = PBXGroup;
+			children = (
+				C22BD5A12B54719B00682FE4 /* GroupsSearchView.swift */,
+				C22BD5A32B5471A500682FE4 /* GroupsSearchViewModel.swift */,
+			);
+			path = GroupsSearchView;
+			sourceTree = "<group>";
+		};
 		C2DA32B32B4FEB4A00083CD9 = {
 			isa = PBXGroup;
 			children = (
@@ -372,6 +421,7 @@
 		C2DA33122B504ADF00083CD9 /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
+				C22BD5952B546F7000682FE4 /* SearchViews */,
 				C22BD5902B5444B800682FE4 /* View */,
 				C2DA33132B504AEC00083CD9 /* SearchView.swift */,
 				C2DA33152B504AF400083CD9 /* SearchViewModel.swift */,
@@ -532,6 +582,7 @@
 				C22BD56A2B535A7F00682FE4 /* APIModels.swift in Sources */,
 				C2DA33192B504CF000083CD9 /* FlickrErrorView.swift in Sources */,
 				C2E530232B514881008BC4AE /* AppCoordinator+Wireframe.swift in Sources */,
+				C22BD5A42B5471A500682FE4 /* GroupsSearchViewModel.swift in Sources */,
 				C2DA32F32B4FFDC600083CD9 /* URLSessionAPIClient.swift in Sources */,
 				C22BD5682B535A3300682FE4 /* Page.swift in Sources */,
 				C2E530272B514FA4008BC4AE /* UserDetailView.swift in Sources */,
@@ -544,6 +595,7 @@
 				C2DA33022B50044B00083CD9 /* Photo.swift in Sources */,
 				C2E530372B529CC1008BC4AE /* Person.swift in Sources */,
 				C2E5302D2B51A7B8008BC4AE /* ViewFirstAppearModifier.swift in Sources */,
+				C22BD5982B546F9E00682FE4 /* UserSearchView.swift in Sources */,
 				C22BD5842B54283200682FE4 /* GroupDetail.swift in Sources */,
 				C2E530352B5297D3008BC4AE /* UserDetailViewModel.swift in Sources */,
 				C22BD5792B54182B00682FE4 /* FlickrLoaderView.swift in Sources */,
@@ -551,20 +603,24 @@
 				C22BD5922B5444CB00682FE4 /* SearchPersonView.swift in Sources */,
 				C2DA33062B502BE200083CD9 /* ImageView.swift in Sources */,
 				C2E5301A2B5143E7008BC4AE /* Dependencies.swift in Sources */,
+				C22BD59D2B54717C00682FE4 /* TagsSearchView.swift in Sources */,
 				C2DA33162B504AF400083CD9 /* SearchViewModel.swift in Sources */,
 				C2DA32FE2B50019400083CD9 /* HomeViewModel.swift in Sources */,
 				C2DA33092B502D4400083CD9 /* ImageCache.swift in Sources */,
 				C22BD5772B54114200682FE4 /* SearchType.swift in Sources */,
 				C22BD5812B54245A00682FE4 /* String+Localized.swift in Sources */,
 				C2DA32F52B4FFE1300083CD9 /* FlickrLogger.swift in Sources */,
+				C22BD59A2B546FAA00682FE4 /* UserSearchViewModel.swift in Sources */,
 				C2E5302F2B51B2BC008BC4AE /* AppCoordinator+ScreenBuilder.swift in Sources */,
 				C22BD58B2B5430C500682FE4 /* Tag.swift in Sources */,
 				C2DA33042B50233000083CD9 /* EndPoints.swift in Sources */,
+				C22BD5A22B54719B00682FE4 /* GroupsSearchView.swift in Sources */,
 				C2DA331B2B504D2D00083CD9 /* FlickrButtonStyle.swift in Sources */,
 				C2E5301C2B51442A008BC4AE /* Requestable.swift in Sources */,
 				C2E530392B52A5D9008BC4AE /* ProfileView.swift in Sources */,
 				C2E530202B51465C008BC4AE /* Status.swift in Sources */,
 				C22BD5752B5404CD00682FE4 /* PhotosRequest.swift in Sources */,
+				C22BD59F2B54718500682FE4 /* TagsSearchViewModel.swift in Sources */,
 				C2E530312B51C050008BC4AE /* TagsView.swift in Sources */,
 				C22BD5942B54456400682FE4 /* SearchGroupView.swift in Sources */,
 				C22BD5862B5428B400682FE4 /* Int+Boolean.swift in Sources */,

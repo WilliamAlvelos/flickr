@@ -22,51 +22,13 @@ struct SearchView: View {
             Spacer()
             
             VStack {
-                switch viewModel.status {
-                case .empty:
-                    FLEmptyView(type: viewModel.searchType.emptyViewType)
-                case .error(let error):
-                    FlickrErrorView(errorMessage: error.localizedDescription) {
-                        viewModel.search()
-                    }
-                case .loading:
-                    FlickrLoaderView()
-                case .loaded:
-                    switch viewModel.searchType {
-                    case .tags:
-                        GeometryReader { geometry in
-                            List(viewModel.photos) { photo in
-                                PhotoView(photo: photo,
-                                          screenWidth: geometry.size.width,
-                                          userPhotoTapGesture: {
-                                    viewModel.presentPerson(person: photo.owner)
-                                })
-                                .onAppear() {
-                                    viewModel.loadNextPage()
-                                }.listRowSeparator(.hidden)
-                                .onTapGesture {
-                                    viewModel.presentPhoto(photo: photo)
-                                }
-                            }
-                        }.refreshable {
-                            viewModel.search()
-                        }.listStyle(.plain)
-                        
-                    case .user:
-                        List(viewModel.people) { person in
-                            SearchPersonView(person: person)
-                                .onTapGesture {
-                                    viewModel.presentPerson(person: person.nsid)
-                                }
-                        }
-                    case .groups:
-                        List(viewModel.groups) { group in
-                            SearchGroupView(group: group)
-                            .onTapGesture {
-                                viewModel.presentGroup(group: group)
-                            }
-                        }
-                    }
+                switch viewModel.searchType {
+                case .tags:
+                    TagsSearchView(viewModel: viewModel.tagsViewModel)
+                case .user:
+                    UserSearchView(viewModel: viewModel.userViewModel)
+                case .groups:
+                    GroupsSearchView(viewModel: viewModel.groupsViewModel)
                 }
             }
             Spacer()

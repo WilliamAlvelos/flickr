@@ -29,6 +29,7 @@ struct Photo: Codable, Photable, BuddyIconable {
         return server
     }
     
+    let identifier = UUID()
     let id: String
     let owner: String
     let secret: String

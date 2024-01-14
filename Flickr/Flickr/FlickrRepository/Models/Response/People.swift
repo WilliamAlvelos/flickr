@@ -15,7 +15,7 @@ struct PeopleBaseResponse<T: Codable>: Codable {
 struct PeoplePage: Codable {
     let total: Int
     let perPage: Int
-    let page: Int
+    let page: String
     let pages: Int
     let person: [SearchPerson]
 }

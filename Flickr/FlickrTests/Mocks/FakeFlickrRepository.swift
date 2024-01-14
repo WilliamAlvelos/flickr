@@ -10,9 +10,11 @@ import Combine
 @testable import Flickr
 
 class FakeFlickrRepository: FlickrRepositoryProtocol {
+    
     var shouldThrowError = false
     var mockedPhotos: [Photo] = []
     var mockedGroups: [Group] = []
+    var mockedPeople: [SearchPerson] = []
     var mockedPerson: Person?
     var mockedUser: User?
 
@@ -38,7 +40,17 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
         }
     }
     
-    func findUserBy(userName: String) -> AnyPublisher<UserBaseResponse<User>, Error> {
+    func searchUserBy(userName: String, page: Page) -> AnyPublisher<PeopleBaseResponse<PeoplePage>, Error> {
+        if shouldThrowError {
+            return Fail(error: mockedError).eraseToAnyPublisher()
+        } else {
+            let fakeGroups = PeopleBaseResponse(people: PeoplePage(total: 1, perPage: 0, page: "1", pages: 10, person: mockedPeople),
+                                                stat: .ok)
+            return Just(fakeGroups).setFailureType(to: Error.self).eraseToAnyPublisher()
+        }
+    }
+    
+    func fetchUserBy(userName: String) -> AnyPublisher<UserBaseResponse<User>, Error> {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
@@ -50,7 +62,7 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
             return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
-
+    
     func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseResponse<Person>, Error> {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
