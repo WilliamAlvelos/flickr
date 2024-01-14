@@ -54,7 +54,9 @@ final class HomeViewModel: ObservableObject {
 
 extension HomeViewModel {
     private func searchPhotos() {
-        repository.searchPhotosBy(text: searchText, safeSearch: .safe, page: page)
+        let request = PhotosBaseRequest(text: searchText, sort: .relevance, safeSearch: .safe)
+
+        repository.searchPhotosBy(request: request, page: page)
             .receive(on: RunLoop.main)
             .sink { completion in
                 switch completion {

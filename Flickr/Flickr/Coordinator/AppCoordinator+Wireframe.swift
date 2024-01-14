@@ -27,6 +27,14 @@ extension AppCoordinator: HomeViewWireframe {
 // MARK:  SearchViewWireframe
 
 protocol SearchViewWireframe {
+    func presentPhoto(photo: Photo)
+    func presentGroup(group: Group)
+    func presentUserProfile(owner: String)
+}
 
+extension AppCoordinator: SearchViewWireframe {
     
+    func presentGroup(group: Group) {
+        print("presentGroup")
+    }
 }

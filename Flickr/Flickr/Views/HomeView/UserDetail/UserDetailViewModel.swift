@@ -28,7 +28,9 @@ class UserDetailViewModel: ObservableObject {
 
 extension UserDetailViewModel {
     func fetchPhotosAndUserDetails() {
-        repository.fetchPhotosBy(userId: userId, safeSearch: .safe, page: Page(page: 0))
+        let request = PhotosBaseRequest(userId: userId, sort: .relevance, safeSearch: .safe)
+        
+        repository.searchPhotosBy(request: request, page: Page(page: 0))
             .zip(repository.fetchPersonInfo(userId: userId))
             .receive(on: RunLoop.main)
             .sink { completion in

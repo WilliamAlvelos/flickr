@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PersonBaseRequest<T: Codable>: Codable {
+struct PersonBaseResponse<T: Codable>: Codable {
     let person: T
     let stat: RequestStat
 }
@@ -38,14 +38,12 @@ struct Person: Codable {
     
     var ownerPhotoURL: URL? {
         let string = "https://live.staticflickr.com/\(iconserver)/buddyicons/\(id)_s.jpg"
-        guard let url = URL(string: string) else { return nil }
-        return url
+        return URL(string: string)
     }
     
     var coverPhotoURL: URL? {
         let string = "https://farm\(iconfarm).staticflickr.com/\(iconserver)/coverphoto/\(id)_h.jpg"
-        guard let url = URL(string: string) else { return nil }
-        return url
+        return URL(string: string)
     }
 }
 

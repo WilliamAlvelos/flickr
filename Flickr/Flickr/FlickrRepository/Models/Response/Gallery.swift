@@ -20,7 +20,7 @@ struct Gallery: Codable {
     
 }
 
-struct GalleryBaseRequest<T: Codable>: Codable {
+struct GalleryBaseResponse<T: Codable>: Codable {
     let galleries: T
     let stat: RequestStat
 }

@@ -13,7 +13,6 @@ enum Status: Equatable {
     case empty
     case loaded
     
-    
     static func == (lhs: Status, rhs: Status) -> Bool {
         switch (lhs, rhs) {
         case (.loading, .loading):

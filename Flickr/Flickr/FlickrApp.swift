@@ -27,7 +27,7 @@ struct FlickrApp: App {
                             homeCoordinator.build(screen: sheet, dependencies: dependencies)
                         }
                 }.tabItem {
-                    Label("Home",
+                    Label("NavigationTitle.Home",
                           systemImage: "photo.artframe.circle")
                 }
                 
@@ -40,7 +40,7 @@ struct FlickrApp: App {
                             searchCoordinator.build(screen: sheet, dependencies: dependencies)
                         }
                 }.tabItem {
-                    Label("Search",
+                    Label("NavigationTitle.Search",
                           systemImage: "magnifyingglass.circle")
                 }
             }

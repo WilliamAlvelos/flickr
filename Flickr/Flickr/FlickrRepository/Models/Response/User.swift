@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserBaseRequest<T: Codable>: Codable {
+struct UserBaseResponse<T: Codable>: Codable {
     let user: T
     let stat: RequestStat
 }

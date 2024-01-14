@@ -34,9 +34,11 @@ extension AppCoordinator {
     func build(screen: Screen, dependencies: DependenciesProtocol) -> some View {
         switch screen {
         case .homeView:
-            HomeView(viewModel: HomeViewModel(repository: dependencies.repository, coordinator: self))
+            HomeView(viewModel: HomeViewModel(repository: dependencies.repository, 
+                                              coordinator: self))
         case .searchView:
-            SearchView(viewModel: SearchViewModel(repository: dependencies.repository))
+            SearchView(viewModel: SearchViewModel(repository: dependencies.repository, 
+                                                  coordinator: self))
         case .photoDetail(let photo):
             PhotoDetailView(photo: photo)
         case .userDetails(let owner):

@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  Flickr
+
+  Created by William de Alvelos on 14/01/2024.
+  
+*/
+
+"NavigationTitle.Home"="Home";
+"NavigationTitle.Search"="Search";
+
+"Search.Placeholder.Photos"="Seach for photos";
+"Search.Placeholder.Tags"="Seach for photos by tag";
+"Search.Placeholder.Groups"="Seach for groups";
+
+"Search.Type.Photos"="Photos";
+"Search.Type.Tags"="Tags";
+"Search.Type.Groups"="Groups";
+
+"ErrorView.Button.TryAgain"="Try Again";
+"EmptyView.Message"="No %@ results found.";

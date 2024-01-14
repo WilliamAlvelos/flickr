@@ -29,7 +29,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    Group {
+    SwiftUI.Group {
         ContentView()
             .environment(\.colorScheme, .light)
         

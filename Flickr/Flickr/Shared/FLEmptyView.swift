@@ -22,7 +22,7 @@ enum FLEmptyViewType: String {
     }
     
     var message: String {
-        return "No \(rawValue) results found." // TODO:  Localize this text
+        return "EmptyView.Message".local(with: [rawValue])
     }
 }
 

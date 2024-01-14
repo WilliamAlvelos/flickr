@@ -15,7 +15,7 @@ struct Photos: Codable {
     let photo: [Photo]
 }
 
-struct PhotosBaseRequest<T: Codable>: Codable {
+struct PhotosBaseResponse<T: Codable>: Codable {
     let photos: T
     let stat: RequestStat
 }
