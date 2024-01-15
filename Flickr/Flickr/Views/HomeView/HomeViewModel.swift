@@ -26,14 +26,6 @@ final class HomeViewModel: ObservableObject {
     }
     
     // MARK:  Public Methods
-    
-    func loadMoreIfNeeded() {
-        if !isLoadingNewPage {
-            page.nextPage()
-            searchPhotos()
-            isLoadingNewPage = true
-        }
-    }
 
     func loadFirstPage() {
         page.reset()
@@ -48,6 +40,17 @@ final class HomeViewModel: ObservableObject {
     
     func presentUserProfile(owner: String) {
         coordinator.presentUserProfile(owner: owner)
+    }
+}
+
+// MARK:  Paginable
+extension HomeViewModel: Paginable {
+    func loadMoreIfNeeded() {
+        if !isLoadingNewPage {
+            page.nextPage()
+            searchPhotos()
+            isLoadingNewPage = true
+        }
     }
 }
 

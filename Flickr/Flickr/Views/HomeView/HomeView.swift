@@ -35,7 +35,7 @@ struct HomeView: View {
                                 }
                             }
                         } footer: {
-                            lastRowView
+                            LastRowView(viewModel: viewModel)
                         }
 
                     }
@@ -51,20 +51,6 @@ struct HomeView: View {
         .searchable(text: $viewModel.searchText)
         .onSubmit(of: .search) {
             viewModel.loadFirstPage()
-        }
-    }
-    
-    var lastRowView: some View {
-        HStack(alignment: .center) {
-            Spacer()
-            ProgressView()
-            Spacer()
-        }
-        .frame(height: 50)
-        .onAppear {
-            if viewModel.status == .loaded {
-                viewModel.loadMoreIfNeeded()
-            }
         }
     }
 }

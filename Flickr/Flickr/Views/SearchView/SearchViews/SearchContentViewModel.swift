@@ -38,17 +38,8 @@ class SearchContentViewModel<T: Codable>: ObservableObject {
         search()
     }
     
-    func loadMoreIfNeeded() {
-        if isLoadingNewPage {
-            return
-        }
-        isLoadingNewPage = true
-        page.nextPage()
-        search()
-    }
-    
     func search() {
-
+        // Method to be override
     }
     
     // MARK:  Coordinator
@@ -63,5 +54,17 @@ class SearchContentViewModel<T: Codable>: ObservableObject {
     
     func presentGroup(group: Group) {
         coordinator.presentGroup(group: group)
+    }
+}
+
+// MARK:  Paginable
+extension SearchContentViewModel: Paginable {
+    func loadMoreIfNeeded() {
+        if isLoadingNewPage {
+            return
+        }
+        isLoadingNewPage = true
+        page.nextPage()
+        search()
     }
 }

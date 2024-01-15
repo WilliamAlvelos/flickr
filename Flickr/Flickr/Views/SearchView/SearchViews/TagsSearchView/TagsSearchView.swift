@@ -38,7 +38,7 @@ struct TagsSearchView: View {
                                 }
                             }
                         } footer: {
-                            lastRowView
+                            LastRowView(viewModel: viewModel)
                         }
                     }.listStyle(.plain)
                 }
@@ -63,20 +63,6 @@ struct TagsSearchView: View {
                     .cancel()
                 ]
             )
-        }
-    }
-    
-    var lastRowView: some View {
-        HStack(alignment: .center) {
-            Spacer()
-            ProgressView()
-            Spacer()
-        }
-        .frame(height: 50)
-        .onAppear {
-            if viewModel.status == .loaded {
-                viewModel.loadMoreIfNeeded()
-            }
         }
     }
 }
