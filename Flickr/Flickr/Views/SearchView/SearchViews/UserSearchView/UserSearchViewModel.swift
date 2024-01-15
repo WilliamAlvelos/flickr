@@ -29,12 +29,12 @@ final class UserSearchViewModel: SearchContentViewModel<SearchPerson> {
                     self.status = .error(error: error)
                 }
             } receiveValue: { response in
-                guard !response.people.person.isEmpty else {
-                    self.status = .empty
-                    return
-                }
-                
                 if response.people.page == "1" { // WHY FLICKR 🤣
+                    guard !response.people.person.isEmpty else {
+                        self.status = .empty
+                        return
+                    }
+                    
                     self.content = response.people.person
                 } else {
                     self.content += response.people.person

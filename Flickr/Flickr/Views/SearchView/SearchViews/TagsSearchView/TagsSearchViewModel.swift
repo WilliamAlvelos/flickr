@@ -38,12 +38,12 @@ final class TagsSearchViewModel: SearchContentViewModel<Photo> {
                     self.status = .error(error: error)
                 }
             } receiveValue: { response in
-                guard !response.photos.photo.isEmpty else {
-                    self.status = .empty
-                    return
-                }
-                
                 if response.photos.page == 1 {
+                    guard !response.photos.photo.isEmpty else {
+                        self.status = .empty
+                        return
+                    }
+                    
                     self.content = response.photos.photo
                 } else {
                     self.content += response.photos.photo

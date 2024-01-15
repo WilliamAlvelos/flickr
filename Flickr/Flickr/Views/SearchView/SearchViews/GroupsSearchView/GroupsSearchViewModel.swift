@@ -28,14 +28,13 @@ final class GroupsSearchViewModel: SearchContentViewModel<Group> {
                     self.status = .error(error: error)
                 }
             } receiveValue: { response in
-                guard !response.groups.group.isEmpty else {
-                    self.status = .empty
-                    return
-                }
-                
                 if response.groups.page == 1 {
+                    guard !response.groups.group.isEmpty else {
+                        self.status = .empty
+                        return
+                    }
+                    
                     self.content = response.groups.group
-
                 } else {
                     self.content += response.groups.group
                     self.isLoadingNewPage = false

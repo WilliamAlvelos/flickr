@@ -17,6 +17,7 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
     var mockedPeople: [SearchPerson] = []
     var mockedPerson: Person?
     var mockedUser: User?
+    var mockedPage: Page = Page(page: 1)
 
     var mockedError: Error = NSError(domain: "MockError", code: 500, userInfo: nil)
     
@@ -24,7 +25,7 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            let fakePhotos = PhotosBaseResponse(photos: Photos(total: 1, page: 0, pages: 1, perpage: 10, photo: mockedPhotos),
+            let fakePhotos = PhotosBaseResponse(photos: Photos(total: 1, page: mockedPage.page, pages: 1, perpage: 10, photo: mockedPhotos),
                                                stat: .ok)
             return Just(fakePhotos).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
@@ -34,7 +35,7 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            let fakeGroups = GroupBaseResponse(groups: Groups(total: 1, page: 0, pages: 1, perpage: 10, group: mockedGroups),
+            let fakeGroups = GroupBaseResponse(groups: Groups(total: 1, page: 1, pages: 1, perpage: 10, group: mockedGroups),
                                                stat: .ok)
             return Just(fakeGroups).setFailureType(to: Error.self).eraseToAnyPublisher()
         }

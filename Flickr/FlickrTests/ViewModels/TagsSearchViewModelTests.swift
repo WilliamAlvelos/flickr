@@ -70,6 +70,32 @@ final class TagsSearchViewModelTests: XCTestCase {
     }
     
     
+    func testFetchingTheSecondPageShouldNotReturnEmpty() {
+        repository.mockedPhotos = [PhotoFactory.new(id: "1")]
+        repository.shouldThrowError = false
+        
+        let expectation = XCTestExpectation(description: "Load photos expectation")
+        expectation.expectedFulfillmentCount = 2
+        
+        viewModel.search(text: "test")
+        XCTAssertEqual(viewModel.page.page, 1)
+        
+        viewModel.$status.sink { status in
+            guard status != .loading else { return }
+            expectation.fulfill()
+        }.store(in: &cancellables)
+        
+        
+        repository.mockedPhotos = []
+        repository.mockedPage.nextPage()
+        viewModel.loadMoreIfNeeded()
+        
+        wait(for: [expectation], timeout: timeout)
+        
+        XCTAssertEqual(viewModel.status, .loaded)
+    }
+    
+    
     func testLoadFirstPageSuccess() throws {
         repository.mockedPhotos = [PhotoFactory.new(id: "1")]
         repository.shouldThrowError = false
