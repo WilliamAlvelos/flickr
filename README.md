@@ -43,8 +43,8 @@ There is a GitHub Action responsible for running the tests of the application, e
 The app works in both dark mode and light mode, so feel free to use the one you prefer 📱.
 
 <p align="middle">
-    <img width="40%" src="screen_shots/dark_mode.png">
-    <img width="40%" src="screen_shots/light_mode.png">
+    <img style="margin-right: 10px;" width="30%" src="screen_shots/dark_mode.png">
+    <img width="30%" src="screen_shots/light_mode.png">
 </p>
 
 I hope you enjoy it. 
