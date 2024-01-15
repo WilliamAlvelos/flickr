@@ -36,8 +36,17 @@ The APIKeys.plist has the api_key needed to run the application, you can try to 
 ## Architecture
 It was decided to use MVVM, because the separation of concerns is clear, enabling better maintainability and testability.
 
-## Screenshots
-The app should work in both dark mode and light mode, so feel free to use the one you prefer 📱.
-
 ## CI
 There is a GitHub Action responsible for running the tests of the application, ensuring that no branches are failing. 🚀
+
+## Screenshots
+The app works in both dark mode and light mode, so feel free to use the one you prefer 📱.
+
+<p align="middle">
+    <img width="40%" src="screen_shots/dark_mode.png">
+    <img width="40%" src="screen_shots/light_mode.png">
+</p>
+
+I hope you enjoy it. 
+
+
