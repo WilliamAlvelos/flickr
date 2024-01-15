@@ -9,7 +9,7 @@ import Foundation
 
 struct PersonBaseResponse<T: Codable>: Codable {
     let person: T
-    let stat: RequestStat
+    let stat: ResponseStat
 }
 
 struct Person: Codable, BuddyIconable, CoverPhotable {    

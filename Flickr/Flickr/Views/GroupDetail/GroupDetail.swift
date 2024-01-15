@@ -11,22 +11,24 @@ struct GroupDetail: View {
     let group: Group
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .center) {
-                ZStack {
-                    ImageView(imageURL: group.coverphotoUrl.url)
-                        .frame(width: geometry.size.width)
-                    
-                    ImageView(imageURL: group.iconURL)
-                        .frame(width: 100, height: 100)
-                        .personImageViewModifier()
+        NavigationView {
+            VStack(spacing: 0) {
+                GeometryReader { geometry in
+                    ZStack {
+                        ImageView(imageURL: group.coverphotoUrl.url)
+                            .frame(width: geometry.size.width)
+                        
+                        ImageView(imageURL: group.iconURL)
+                            .frame(width: 100, height: 100)
+                            .personImageViewModifier()
+                    }
                 }
                 
                 VStack {
                     HStack {
                         Text(group.name)
                             .font(.title)
-
+                        
                         if group.eighteenplus.boolValue {
                             Text("🔞")
                                 .font(.title)
@@ -43,23 +45,20 @@ struct GroupDetail: View {
                         Text(group.topicCount)
                             .font(.footnote)
                             .bold()
-
+                        
                         Image(systemName: "photo.on.rectangle")
                         Text(group.poolCount)
                             .font(.footnote)
                             .bold()
                     }
-                    
-                    
                     Spacer()
-                    
+
                     Button { } label: {
                         Text("+ Join")
                     }.buttonStyle(FlickrButtonStyle())
-                    
-                    Spacer()
-                }
+                }.padding()
             }
-        }
+        }.navigationTitle(group.name)
+    
     }
 }

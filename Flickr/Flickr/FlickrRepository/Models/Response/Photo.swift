@@ -7,8 +7,9 @@
 
 import Foundation
 
-enum RequestStat: String, Codable {
+enum ResponseStat: String, Codable {
     case ok
+    case fail
 }
 
 struct Photos: Codable {
@@ -21,7 +22,7 @@ struct Photos: Codable {
 
 struct PhotosBaseResponse<T: Codable>: Codable {
     let photos: T
-    let stat: RequestStat
+    let stat: ResponseStat
 }
 
 struct Photo: Codable, Photable, BuddyIconable {

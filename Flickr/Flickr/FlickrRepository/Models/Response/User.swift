@@ -9,7 +9,7 @@ import Foundation
 
 struct UserBaseResponse<T: Codable>: Codable {
     let user: T
-    let stat: RequestStat
+    let stat: ResponseStat
 }
 
 struct User: Codable {

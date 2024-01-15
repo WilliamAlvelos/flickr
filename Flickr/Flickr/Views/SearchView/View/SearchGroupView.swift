@@ -11,8 +11,7 @@ struct SearchGroupView: View {
     let group: Group
     
     var body: some View {
-        
-        HStack {
+        HStack(spacing: 8) {
             ImageView(imageURL: group.iconURL)
                 .frame(width: 50, height: 50)
                 .personImageViewModifier()

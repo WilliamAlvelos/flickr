@@ -9,7 +9,7 @@ import Foundation
 
 struct GroupBaseResponse<T: Codable>: Codable {
     let groups: T
-    let stat: RequestStat
+    let stat: ResponseStat
 }
 
 struct Groups: Codable {

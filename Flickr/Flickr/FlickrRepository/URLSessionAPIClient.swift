@@ -48,13 +48,18 @@ final class URLSessionAPIClient: APIClient {
                 guard let httpResponse = response as? HTTPURLResponse else {
                     throw APIError.invalidResponse
                 }
+                
+                // MARK:  They return an error with 200 status
+                if let flickrError = try? decoder.decode(FlickrError.self, from: data) {
+                    throw flickrError
+                }
+                
                 guard (200...299).contains(httpResponse.statusCode) else {
-                    
                     if [401, 403].contains(httpResponse.statusCode) {
                         throw APIError.unauthorized
                     }
 
-                    throw try decoder.decode(FlickrError.self, from: data)
+                    throw APIError.invalidStatus
                 }
                 return data
             }

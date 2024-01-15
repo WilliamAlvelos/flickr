@@ -9,7 +9,7 @@ import Foundation
 
 struct PeopleBaseResponse<T: Codable>: Codable {
     let people: T
-    let stat: RequestStat
+    let stat: ResponseStat
 }
 
 struct PeoplePage: Codable {

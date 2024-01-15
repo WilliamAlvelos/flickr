@@ -17,10 +17,17 @@ enum HTTPMethod: String {
 
 enum APIError: Error {
     case invalidResponse
+    case invalidStatus
     case invalidData
     case unauthorized
 }
 
 struct FlickrError: Codable, Error {
     let message: String
+    let code: Int
+    let stat: ResponseStat
+    
+    var localizedDescription: String {
+        return message
+    }
 }
