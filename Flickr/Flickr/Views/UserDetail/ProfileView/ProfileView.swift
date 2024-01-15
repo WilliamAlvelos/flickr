@@ -12,7 +12,7 @@ struct ProfileView: View {
     let screenWidth: CGFloat
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 10) {
             ZStack {
                 ImageView(imageURL: person.coverURL, contentMode: .fill)
                     .frame(width: screenWidth)

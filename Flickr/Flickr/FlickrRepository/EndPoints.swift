@@ -13,9 +13,7 @@ enum EndPoints {
     case searchPhotos(request: PhotosBaseRequest, page: Page)
     case searchGroups(text: String, page: Page)
     case searchUser(userName: String, page: Page)
-    
     case personInfo(userId: String)
-    case fetchUser(userName: String)
     
     func builder() -> Requestable {
         switch self {
@@ -49,13 +47,6 @@ enum EndPoints {
                            parameters: ["method": "flickr.people.search",
                                         "username": userName,
                                         "page": "\(page.page)"])
-            
-        case .fetchUser(let userName):
-            return Request(baseURL: EndPoints.baseURL,
-                           path: "services/rest",
-                           method: .get,
-                           parameters: ["method": "flickr.people.findByUsername",
-                                        "username": userName])
         case .personInfo(let userId):
             return Request(baseURL: EndPoints.baseURL,
                            path: "services/rest",

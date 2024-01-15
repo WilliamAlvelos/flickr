@@ -9,6 +9,9 @@ import Foundation
 import Combine
 
 final class TagsSearchViewModel: SearchContentViewModel<Photo> {
+    
+    var tagMode: TagMode = .any
+    
     override func search() {
         searchPhotos()
     }
@@ -18,7 +21,12 @@ final class TagsSearchViewModel: SearchContentViewModel<Photo> {
             self.status = .loading
         }
         
-        let request = PhotosBaseRequest(tags: currentSearch, safeSearch: .safe)
+        // changes all the spaces to send different tags
+        let tags = currentSearch.replacingOccurrences(of: " ", with: ",")
+        
+        let request = PhotosBaseRequest(tags: tags,
+                                        tagMode: tagMode,
+                                        safeSearch: .safe)
         
         repository.searchPhotosBy(request: request, page: page)
             .receive(on: RunLoop.main)

@@ -13,6 +13,11 @@
 "Search.Placeholder.User"="Search for users";
 "Search.Placeholder.Groups"="Search for groups";
 
+"Search.FilterTags.Title"="Choose an option";
+"Search.FilterTags.Message"="How would you like to search your tags?";
+"Search.FilterTags.Any"="Any Tag that matches";
+"Search.FilterTags.All"="All Tags must match";
+
 "Search.Type.Tags"="Tags";
 "Search.Type.Users"="Users";
 "Search.Type.Groups"="Groups";

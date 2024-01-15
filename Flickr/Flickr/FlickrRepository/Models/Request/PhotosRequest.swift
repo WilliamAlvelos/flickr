@@ -17,9 +17,15 @@ enum PhotosRequestSort: String {
     case relevance = "relevance"
 }
 
+enum TagMode: String {
+    case any
+    case all
+}
+
 struct PhotosBaseRequest {
     var text: String? = nil
     var tags: String? = nil
+    var tagMode: TagMode?
     var userId: String? = nil
     var sort: PhotosRequestSort? = nil
     let safeSearch: SafeSearch
@@ -35,6 +41,10 @@ struct PhotosBaseRequest {
 
         if let tags = tags {
             parameters["tags"] = tags
+        }
+        
+        if let tagMode = tagMode {
+            parameters["tag_mode"] = tagMode.rawValue
         }
 
         if let userId = userId {

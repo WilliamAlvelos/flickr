@@ -38,7 +38,6 @@ struct PhotoDetailView: View {
             }
             
             // TODO:  DISPLAY PHOTO COMMENTS
-            Text(photo.id)
         }
     }
 }

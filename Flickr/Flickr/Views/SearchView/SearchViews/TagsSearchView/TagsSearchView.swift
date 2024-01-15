@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct TagsSearchView: View {
-    @StateObject var viewModel: SearchContentViewModel<Photo>
-    
+    @StateObject var viewModel: TagsSearchViewModel
+    @State private var showingActionSheet = false
+        
     var body: some View {
         VStack {
             switch viewModel.status {
@@ -42,6 +43,26 @@ struct TagsSearchView: View {
                     }.listStyle(.plain)
                 }
             }
+        }.navigationBarItems(trailing:
+            Button(action: {
+                showingActionSheet.toggle()
+            }) {
+                Image(systemName: "line.3.horizontal.decrease.circle")
+            }
+        ).actionSheet(isPresented: $showingActionSheet) {
+            ActionSheet(
+                title: Text("Search.FilterTags.Title"),
+                message: Text("Search.FilterTags.Message"),
+                buttons: [
+                    .default(Text("Search.FilterTags.Any")) {
+                        viewModel.tagMode = .any
+                    },
+                    .default(Text("Search.FilterTags.All")) {
+                        viewModel.tagMode = .all
+                    },
+                    .cancel()
+                ]
+            )
         }
     }
     

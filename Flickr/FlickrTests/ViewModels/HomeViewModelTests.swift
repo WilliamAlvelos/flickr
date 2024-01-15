@@ -46,6 +46,10 @@ final class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(coordinator.didPresentOwner, owner)
     }
     
+    func testInitialSearchTextIsYorkshire() {
+        XCTAssertEqual(viewModel.searchText, "yorkshire")
+    }
+    
     func testLoadFirstPageSuccess() throws {
         repository.mockedPhotos = [PhotoFactory.new(id: "1")]
         repository.shouldThrowError = false

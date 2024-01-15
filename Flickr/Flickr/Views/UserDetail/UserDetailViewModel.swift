@@ -25,6 +25,7 @@ class UserDetailViewModel: ObservableObject {
     }
 }
 
+// MARK:  Public Methods
 extension UserDetailViewModel {
     func fetchPhotosAndUserDetails() {
         let request = PhotosBaseRequest(userId: userId, sort: .relevance, safeSearch: .safe)

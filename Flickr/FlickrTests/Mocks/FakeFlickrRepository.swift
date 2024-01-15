@@ -5,6 +5,7 @@
 //  Created by William de Alvelos on 14/01/2024.
 //
 
+import Foundation
 import Combine
 @testable import Flickr
 
@@ -46,19 +47,6 @@ class FakeFlickrRepository: FlickrRepositoryProtocol {
             let fakeGroups = PeopleBaseResponse(people: PeoplePage(total: 1, perPage: 0, page: "1", pages: 10, person: mockedPeople),
                                                 stat: .ok)
             return Just(fakeGroups).setFailureType(to: Error.self).eraseToAnyPublisher()
-        }
-    }
-    
-    func fetchUserBy(userName: String) -> AnyPublisher<UserBaseResponse<User>, Error> {
-        if shouldThrowError {
-            return Fail(error: mockedError).eraseToAnyPublisher()
-        } else {
-            guard let fakeUser = mockedUser else {
-                return Fail(error: NSError(domain: "mocked was nil", code: -1)).eraseToAnyPublisher()
-            }
-            
-            let response = UserBaseResponse<User>(user: fakeUser, stat: .ok)
-            return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
     

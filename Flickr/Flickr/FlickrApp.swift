@@ -17,7 +17,6 @@ struct FlickrApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                
                 NavigationStack(path: $homeCoordinator.path) {
                     homeCoordinator.build(screen: .homeView, dependencies: dependencies)
                         .navigationDestination(for: Screen.self) { screen in
