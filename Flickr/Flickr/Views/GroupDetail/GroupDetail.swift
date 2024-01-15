@@ -54,7 +54,7 @@ struct GroupDetail: View {
                     Spacer()
 
                     Button { } label: {
-                        Text("+ Join")
+                        Text("Group.Join")
                     }.buttonStyle(FlickrButtonStyle())
                 }.padding()
             }

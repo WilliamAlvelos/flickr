@@ -24,3 +24,5 @@
 
 "ErrorView.Button.TryAgain"="Try Again";
 "EmptyView.Message"="No %@ results found.";
+
+"Group.Join"="+ Join";
