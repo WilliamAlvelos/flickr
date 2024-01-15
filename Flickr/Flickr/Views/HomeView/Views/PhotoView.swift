@@ -10,10 +10,11 @@ import SwiftUI
 struct PhotoView: View {
     let photo: Photo
     let screenWidth: CGFloat
+    let userPhotoTapGesture: (() -> Void)?
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            ImageView(imageURL: photo.photoURL, contentMode: .fit)
+            ImageView(imageURL: photo.photoURL)
                 .frame(width: screenWidth)
                 .clipped()
             
@@ -21,7 +22,7 @@ struct PhotoView: View {
                 .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
             
             HStack(alignment: .center) {
-                ImageView(imageURL: photo.ownerPhotoURL)
+                ImageView(imageURL: photo.iconURL)
                     .frame(width: 40, height: 40)
                     .personImageViewModifier()
                 
@@ -38,6 +39,8 @@ struct PhotoView: View {
                 Text(photo.dateTakesFormated)
                     .font(.footnote)
                     .padding()
+            }.onTapGesture {
+                userPhotoTapGesture?()
             }
         }
     }

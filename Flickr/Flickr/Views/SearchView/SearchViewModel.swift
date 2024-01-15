@@ -5,35 +5,45 @@
 //  Created by William de Alvelos on 11/01/2024.
 //
 
-import Foundation
 import Combine
 
 final class SearchViewModel: ObservableObject {
+    @Published var searchText: String = ""
+    @Published var searchType: SearchType = SearchType.tags
     
-    @Published var status: Status = .empty
-    @Published var photos = [Photo]()
+    private let repository: FlickrRepositoryProtocol
+    private let coordinator: SearchViewWireframe
     
-    private var cancellable: Set<AnyCancellable> = []
-    private var repository: FlickrRepositoryProtocol
+    var tagsViewModel: TagsSearchViewModel
+    var userViewModel: UserSearchViewModel
+    var groupsViewModel: GroupsSearchViewModel
     
-    init(repository: FlickrRepositoryProtocol) {
+    init(repository: FlickrRepositoryProtocol, coordinator: SearchViewWireframe) {
         self.repository = repository
+        self.coordinator = coordinator
+        
+        tagsViewModel = TagsSearchViewModel(repository: repository,
+                                            coordinator: coordinator)
+        
+        userViewModel = UserSearchViewModel(repository: repository,
+                                            coordinator: coordinator)
+        
+        groupsViewModel = GroupsSearchViewModel(repository: repository,
+                                                coordinator: coordinator)
     }
-    
-    // MARK:  Public Methods
-    
-    func searchPhotos(text: String) {
-        repository.searchPhotosBy(text: text, safeSearch: .safe, page: Page(page: 0))
-            .receive(on: RunLoop.main)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error)
-                }
-            } receiveValue: { photos in
-                self.photos = photos.photos.photo
-            }.store(in: &cancellable)
+}
+
+// MARK:  Public Methods
+
+extension SearchViewModel {
+    func search() {
+        switch searchType {
+        case .tags:
+            tagsViewModel.search(text: searchText)
+        case .user:
+            userViewModel.search(text: searchText)
+        case .groups:
+            groupsViewModel.search(text: searchText)            
+        }
     }
 }

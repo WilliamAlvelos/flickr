@@ -37,7 +37,6 @@ class PhotoTagsTest: XCTestCase {
         XCTAssertTrue(sut.resumedPhotoTags.isEmpty)
     }
     
-    
     func testTagsFewerThanFourShouldBeSameNumber() throws {
         let sut = PhotoFactory.new(tags: "tag1 tag2 tag3")
 

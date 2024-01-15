@@ -12,6 +12,7 @@ enum Screen: Identifiable, Hashable {
     case searchView
     case photoDetail(photo: Photo)
     case userDetails(owner: String)
+    case groupDetails(group: Group)
     
     var id: String {
         switch self {
@@ -19,10 +20,12 @@ enum Screen: Identifiable, Hashable {
             return "homeView"
         case .searchView:
             return "searchView"
-        case let .photoDetail(photo):
+        case .photoDetail(let photo):
             return photo.id
-        case let .userDetails(owner):
+        case .userDetails(let owner):
             return owner
+        case .groupDetails(let group):
+            return group.id
         }
     }
 }
@@ -34,14 +37,18 @@ extension AppCoordinator {
     func build(screen: Screen, dependencies: DependenciesProtocol) -> some View {
         switch screen {
         case .homeView:
-            HomeView(viewModel: HomeViewModel(repository: dependencies.repository, coordinator: self))
+            HomeView(viewModel: HomeViewModel(repository: dependencies.repository, 
+                                              coordinator: self))
         case .searchView:
-            SearchView(viewModel: SearchViewModel(repository: dependencies.repository))
+            SearchView(viewModel: SearchViewModel(repository: dependencies.repository, 
+                                                  coordinator: self))
         case .photoDetail(let photo):
             PhotoDetailView(photo: photo)
         case .userDetails(let owner):
             UserDetailView(viewModel: UserDetailViewModel(repository: dependencies.repository, 
                                                           userId: owner))
+        case .groupDetails(let group):
+            GroupDetail(group: group)
         }
     }
 }

@@ -11,7 +11,7 @@ final class AppCoordinator: ObservableObject {
     @Published var path = NavigationPath()
     @Published var sheet: Screen?
     
-    func push(screen: any Hashable) {
+    func push(screen: Screen) {
         path.append(screen)
     }
     

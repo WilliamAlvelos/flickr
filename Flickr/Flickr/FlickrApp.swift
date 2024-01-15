@@ -17,7 +17,6 @@ struct FlickrApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                
                 NavigationStack(path: $homeCoordinator.path) {
                     homeCoordinator.build(screen: .homeView, dependencies: dependencies)
                         .navigationDestination(for: Screen.self) { screen in
@@ -27,20 +26,20 @@ struct FlickrApp: App {
                             homeCoordinator.build(screen: sheet, dependencies: dependencies)
                         }
                 }.tabItem {
-                    Label("Home",
+                    Label("NavigationTitle.Home",
                           systemImage: "photo.artframe.circle")
                 }
                 
                 NavigationStack(path: $searchCoordinator.path) {
                     searchCoordinator.build(screen: .searchView, dependencies: dependencies)
-                        .navigationDestination(for: Photo.self) { photo in
-                            searchCoordinator.build(screen: .photoDetail(photo: photo), dependencies: dependencies)
+                        .navigationDestination(for: Screen.self) { screen in
+                            searchCoordinator.build(screen: screen, dependencies: dependencies)
                         }
                         .sheet(item: $searchCoordinator.sheet) { sheet in
                             searchCoordinator.build(screen: sheet, dependencies: dependencies)
                         }
                 }.tabItem {
-                    Label("Search",
+                    Label("NavigationTitle.Search",
                           systemImage: "magnifyingglass.circle")
                 }
             }

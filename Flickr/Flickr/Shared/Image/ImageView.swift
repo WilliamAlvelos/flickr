@@ -17,7 +17,7 @@ struct ImageView: View {
     
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             if let cachedImage = cachedImage {
                 Image(uiImage: cachedImage)
                     .resizable()

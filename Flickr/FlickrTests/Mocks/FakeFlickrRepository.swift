@@ -10,52 +10,56 @@ import Combine
 @testable import Flickr
 
 class FakeFlickrRepository: FlickrRepositoryProtocol {
+    
     var shouldThrowError = false
     var mockedPhotos: [Photo] = []
+    var mockedGroups: [Group] = []
+    var mockedPeople: [SearchPerson] = []
+    var mockedPerson: Person?
+    var mockedUser: User?
+
     var mockedError: Error = NSError(domain: "MockError", code: 500, userInfo: nil)
-
-    var users: [UserBaseRequest<User>] = []
-    var persons: [PersonBaseRequest<Person>] = []
     
-    func fetchPhotosBy(userId: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error> {
+    func searchPhotosBy(request: PhotosBaseRequest, page: Page) -> AnyPublisher<PhotosBaseResponse<Photos>, Error> {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            let fakePhotos = PhotosBaseRequest(photos: Photos(total: 1, page: 0, pages: 1, perpage: 10, photo: mockedPhotos),
+            let fakePhotos = PhotosBaseResponse(photos: Photos(total: 1, page: 0, pages: 1, perpage: 10, photo: mockedPhotos),
                                                stat: .ok)
             return Just(fakePhotos).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
-
-    func searchPhotosBy(text: String, safeSearch: SafeSearch, page: Page) -> AnyPublisher<PhotosBaseRequest<Photos>, Error> {
+    
+    func searchGroupsBy(text: String, page: Page) -> AnyPublisher<GroupBaseResponse<Groups>, Error> {
         if shouldThrowError {
             return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            let fakePhotos = PhotosBaseRequest(photos: Photos(total: 1, page: 0, pages: 1, perpage: 10, photo: mockedPhotos),
+            let fakeGroups = GroupBaseResponse(groups: Groups(total: 1, page: 0, pages: 1, perpage: 10, group: mockedGroups),
                                                stat: .ok)
-            return Just(fakePhotos).setFailureType(to: Error.self).eraseToAnyPublisher()
+            return Just(fakeGroups).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
-
-    func findUserBy(userName: String) -> AnyPublisher<UserBaseRequest<User>, Error> {
-        if let user = users.first {
-            return Just(user)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+    
+    func searchUserBy(userName: String, page: Page) -> AnyPublisher<PeopleBaseResponse<PeoplePage>, Error> {
+        if shouldThrowError {
+            return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            return Fail(error: NSError(domain: "MockError", code: 404, userInfo: nil))
-                .eraseToAnyPublisher()
+            let fakeGroups = PeopleBaseResponse(people: PeoplePage(total: 1, perPage: 0, page: "1", pages: 10, person: mockedPeople),
+                                                stat: .ok)
+            return Just(fakeGroups).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
-
-    func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseRequest<Person>, Error> {
-        if let person = persons.first {
-            return Just(person)
-                .setFailureType(to: Error.self)
-                .eraseToAnyPublisher()
+    
+    func fetchPersonInfo(userId: String) -> AnyPublisher<PersonBaseResponse<Person>, Error> {
+        if shouldThrowError {
+            return Fail(error: mockedError).eraseToAnyPublisher()
         } else {
-            return Fail(error: NSError(domain: "MockError", code: 404, userInfo: nil))
-                .eraseToAnyPublisher()
+            guard let fakePerson = mockedPerson else {
+                return Fail(error: NSError(domain: "mocked was nil", code: -1)).eraseToAnyPublisher()
+            }
+            
+            let response = PersonBaseResponse<Person>(person: fakePerson, stat: .ok)
+            return Just(response).setFailureType(to: Error.self).eraseToAnyPublisher()
         }
     }
 }

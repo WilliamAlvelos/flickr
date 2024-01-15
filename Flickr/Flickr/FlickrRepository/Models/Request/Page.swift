@@ -15,6 +15,6 @@ struct Page {
     }
     
     mutating func reset() {
-        self.page = 0
+        self.page = 1
     }
 }

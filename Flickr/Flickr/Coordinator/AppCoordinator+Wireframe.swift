@@ -20,13 +20,20 @@ extension AppCoordinator: HomeViewWireframe {
     }
     
     func presentUserProfile(owner: String) {
-        push(screen: Screen.userDetails(owner: owner))
+        push(screen: .userDetails(owner: owner))
     }
 }
 
 // MARK:  SearchViewWireframe
 
 protocol SearchViewWireframe {
+    func presentPhoto(photo: Photo)
+    func presentGroup(group: Group)
+    func presentUserProfile(owner: String)
+}
 
-    
+extension AppCoordinator: SearchViewWireframe {
+    func presentGroup(group: Group) {
+        push(screen: .groupDetails(group: group))
+    }
 }

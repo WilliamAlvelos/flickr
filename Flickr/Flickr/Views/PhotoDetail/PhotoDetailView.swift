@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PhotoDetailView: View {
     @Environment(\.presentationMode) var presentationMode
-
+    
     var photo: Photo
     
     var body: some View {
@@ -17,7 +17,8 @@ struct PhotoDetailView: View {
             GeometryReader { geometry in
                 ZStack(alignment: .topTrailing) {
                     PhotoView(photo: photo,
-                              screenWidth: geometry.size.width)
+                              screenWidth: geometry.size.width, 
+                              userPhotoTapGesture: nil)
                     
                     VStack(spacing: 16) {
                         Button {
@@ -31,23 +32,12 @@ struct PhotoDetailView: View {
                                 .background(Color.white.opacity(0.8))
                                 .cornerRadius(10)
                         }
-
-                        Button {
-                            print("implement share button")
-                        } label: {
-                            Image(systemName: "square.and.arrow.up")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.primaryBlue)
-                                .padding(8)
-                                .background(Color.white.opacity(0.8))
-                                .cornerRadius(10)
-                        }
                     }
                     .padding(16)
                 }
             }
+            
+            // TODO:  DISPLAY PHOTO COMMENTS
         }
     }
 }

@@ -12,7 +12,7 @@ struct PersonImageViewModifier: ViewModifier {
         content
             .clipShape(Circle())
             .overlay(Circle().stroke(Color.secondaryPink.gradient, 
-                                     lineWidth: 1))
+                                     lineWidth: 2))
             .shadow(radius: 3)
             .padding(8)
     }
