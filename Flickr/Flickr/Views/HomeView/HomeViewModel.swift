@@ -25,6 +25,10 @@ final class HomeViewModel: ObservableObject {
         self.coordinator = coordinator
     }
     
+    deinit {
+        cancellables.forEach { $0.cancel() }
+    }
+    
     // MARK:  Public Methods
 
     func loadFirstPage() {

@@ -1,25 +1,6 @@
 # Flickr
 
-## Brief
-
-### Develop a native mobile app which uses the Flickr API to display a list of photos.
-
-✅ The app should display a list of photos, along with the poster's userid and user icon. 
-
-✅ The app should display alongside the photo a list of any tags associated with the photo. (I'm only diplaying 4 tags so it looks good on the layout)
-
-✅ Tapping on the photo should take the user to a separate page wherein they can see more detail about the photo (e.g. Title, date take, any content description, etc.)
-
-✅ Tapping on a user id/photo should produce a list of photos by that user. 
-
-✅ There should be a default search of "Yorkshire" on first load and safe_search should be set to safe.
-
-## Additional Features
-
-✅ The app should be able to search for Photos by tag or lists of tags, and provide whether a photo should contain all or some tags
-
-✅ The app could allow for searching for a user's photos by their username
-
+### This is an app for iOS using the Flickr API.
 
 ## Requirements
 

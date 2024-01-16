@@ -23,6 +23,10 @@ class UserDetailViewModel: ObservableObject {
         self.repository = repository
         self.userId = userId
     }
+    
+    deinit {
+        cancellables.forEach { $0.cancel() }
+    }
 }
 
 // MARK:  Public Methods
